@@ -1,0 +1,43 @@
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body,html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.container {
+  max-width: 1200px;
+  margin: 30px auto 0;
+  position: relative;
+}
+.login {
+  padding: 50px 0;
+  max-width: 350px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  h2 {
+    text-align: center;
+  }
+  > div {
+    width: 100% !important;
+    padding-bottom: 30px;
+  }
+  &__field {
+    display: block !important;
+    margin: auto;
+  }
+  .btn {
+    //width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+}
