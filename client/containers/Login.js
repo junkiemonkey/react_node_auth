@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {TextField, Paper, RaisedButton } from 'material-ui';
+import {login} from '../AC/login';
+import { connect } from 'react-redux';
 
 class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
-      login: '',
+      email: '',
       pass: ''
     };
   }
@@ -19,7 +21,7 @@ class Login extends Component {
           <TextField
             onChange={this._loginChange}
             className="login__field"
-            floatingLabelText="Login" />
+            floatingLabelText="Email" />
           <TextField
             onChange={this._passChange}
             className="login__field"
@@ -37,7 +39,7 @@ class Login extends Component {
 
   _loginChange = e => {
     this.setState({
-      login: e.target.value
+      email: e.target.value
     });
   };
 
@@ -48,9 +50,13 @@ class Login extends Component {
   };
 
   _Auth = () => {
-    console.log(this.state.login);
-    console.log(this.state.pass);
+    const {email, pass} = this.state;
+    const {login} = this.props;
+    login(email, pass);
+    // console.log()
   }
 }
 
-export default Login;
+export default connect((state) => {
+  return state;
+},{login: login})(Login);

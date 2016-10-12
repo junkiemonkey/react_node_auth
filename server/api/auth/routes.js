@@ -5,4 +5,6 @@ const router = new Router({
   prefix: '/api'
 });
 
-router.post('/auth', controller.post);
+router.post('/auth/', controller.post);
+
+module.exports = router;

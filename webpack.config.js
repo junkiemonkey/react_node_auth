@@ -17,10 +17,9 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     contentBase: __dirname + '/static',
-    proxy: [{
-      path: '/api/*',
-      target: 'http://localhost:3000'
-    }]
+    proxy: {
+      '/api/*':  'http://localhost:3000'
+    }
   },
   module: {
     loaders: [

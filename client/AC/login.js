@@ -1,10 +1,10 @@
 import {LOGIN} from '../constants';
 
-export function login(user, pass) {
+export function login(email, password) {
   "use strict";
   return {
     type: LOGIN,
-    payload: {user, pass},
+    payload: {email, password},
     callAPI: '/api/auth/'
   };
 }

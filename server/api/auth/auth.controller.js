@@ -1,8 +1,12 @@
 var passport = require('koa-passport');
 
 exports.post = function*(next) {
-  yield passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/'
-  });
+
+  // console.log('api post');
+  console.log(this.request.body);
+  // yield next;
+  // yield passport.authenticate('local', {
+  //   successRedirect: '/',
+  //   failureRedirect: '/'
+  // });
 }
