@@ -1,62 +1,140 @@
 import React, {Component} from 'react';
-import {TextField, Paper, RaisedButton } from 'material-ui';
+import {TextField, Paper, RaisedButton, Dialog, FlatButton } from 'material-ui';
 import {login} from '../AC/login';
 import { connect } from 'react-redux';
+import {Link, browserHistory} from 'react-router';
 
 class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
       email: '',
-      pass: ''
+      pass: '',
+      emailField: false,
+      passField: false,
+      error: '',
+      popup: false
     };
   }
 
+  componentWillReceiveProps(props){
+    const {login} = props.auth;
+    if(login) {
+      browserHistory.push('/dashboard');
+    }else{
+      this.setState({
+        popup: true
+      });
+    }
+  }
 
   render() {
+    const actions = [
+      <FlatButton
+        label="Ok"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
+
     return (
       <div className="login">
         <h2 >Login Page</h2>
         <Paper zDepth={5} style={{textAlign: 'center'}}>
           <TextField
-            onChange={this._loginChange}
+            onChange={this.emailChange}
+            errorText={this.state.emailField ? this.state.error : ''}
             className="login__field"
             floatingLabelText="Email" />
           <TextField
-            onChange={this._passChange}
+            onChange={this.passChange}
             className="login__field"
+            errorText={this.state.passField ? this.state.error : ''}
             floatingLabelText="Password"
             type="password" />
           <RaisedButton
-            onClick={this._Auth}
+            onClick={this.Auth}
             className="btn"
             primary={true}
             label="Log in" />
+          <div className="reg_link">
+            <Link to="/registration">Registration</Link>
+          </div>
         </Paper>
+        <Dialog
+          title="Error"
+          actions={actions}
+          modal={true}
+          open={this.state.popup}
+        >Error login!</Dialog>
       </div>
     )
   }
 
-  _loginChange = e => {
+  handleClose = () =>{
+    this.setState({
+      popup: false
+    })
+  }
+
+  emailChange = e => {
     this.setState({
       email: e.target.value
     });
   };
 
-  _passChange = e => {
+  passChange = e => {
     this.setState({
       pass: e.target.value
     });
   };
 
-  _Auth = () => {
+  Auth = () => {
+    if(!this._validator(this.state)) return;
     const {email, pass} = this.state;
     const {login} = this.props;
     login(email, pass);
-    // console.log()
+  }
+
+  _validator = (state) => {
+    const {email, pass} = state;
+    if(email == '') {
+      this.setState({
+        emailField: true,
+        error: 'This field is required'
+      });
+      return false;
+    }else if(!/^[-.\w]+@([\w-]+\.)+[\w-]{2,12}$/.test(email)){
+      this.setState({
+        emailField: true,
+        error: 'Incorrect email!'
+      });
+      return false;
+    }else {
+      this.setState({
+        emailField: false,
+        error: ''
+      });
+    }
+    if(pass == '') {
+      this.setState({
+        passField: true,
+        error: 'This field is required'
+      });
+      return false;
+    }else {
+      this.setState({
+        passField: false,
+        error: ''
+      });
+    }
+    return true;
   }
 }
 
 export default connect((state) => {
-  return state;
+  const {auth} = state.auth;
+  // console.log(auth);
+  return { auth }
 },{login: login})(Login);

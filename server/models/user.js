@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../db/mongoose');
 const Schema = mongoose.Schema;
 const crypto = require('crypto');
 const config = require('config');
@@ -28,14 +28,13 @@ var userSchema = new Schema({
     required: true
   },
   created: {
-    type: date,
+    type: Date,
     default: Date.now
   }
 });
 
 userSchema.virtual('password')
   .set(function(password) {
-
     if (password !== undefined) {
       if (password.length < 4) {
         this.invalidate('password', 'Пароль должен быть минимум 4 символа.');

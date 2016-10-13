@@ -20,7 +20,7 @@ module.exports = function*(next) {
         this.body = e.message;
       }
 
-    } else if (e.name == 'ValidationError') {
+    } else if (e.name == 'ValidationError' || e == 'ValidationError') {
 
       this.status = 400;
 
@@ -35,7 +35,9 @@ module.exports = function*(next) {
           errors: errors
         };
       } else {
-        this.body = "Некорректные данные.";
+        this.body = {
+          errors: errors
+        };
       }
 
     } else {

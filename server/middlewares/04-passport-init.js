@@ -1,6 +1,14 @@
 const passport = require('koa-passport');
-const LocalStrategy = require('passport-local');
+const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id); // uses _id as idFieldd
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, done); // callback version checks id validity automatically
+});
 
 passport.use(new LocalStrategy({
     usernameField: 'email', // 'username' by default
@@ -12,12 +20,32 @@ passport.use(new LocalStrategy({
         return done(err);
       }
       if (!user || !user.checkPassword(password)) {
-        // don't say whether the user exists
+        // console.log(user.checkPassword(password));
         return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
       }
       return done(null, user);
     });
   }
 ));
+
+passport.use('local-signup', new LocalStrategy({
+    usernameField : 'email',
+    passwordField : 'password',
+    session: false,
+    passReqToCallback : true
+  },
+  function(req, email, password, done){
+    var userData = {
+      email: email.trim(),
+      password: password.trim(),
+      username: req.body.username.trim()
+    };
+    var user = new User(userData);
+    user.save(function(e, user){
+      if(e) return done(e);
+      return done(null, user);
+    });
+
+  }));
 
 module.exports = passport.initialize();

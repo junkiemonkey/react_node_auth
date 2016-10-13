@@ -6,6 +6,8 @@ export default store => next => action => {
 
   if (!callAPI) return next(action);
 
+
+
   $.ajax({
     url: callAPI,
     type: 'POST',
@@ -13,8 +15,8 @@ export default store => next => action => {
     success(res){
       next({type: type + SUCCESS, res, ...rest});
     },
-    error(e){
-      next({type: type + FAIL, e, ...rest});
+    error(res){
+      next({type: type + FAIL, res, ...rest});
     }
   });
 
