@@ -5,6 +5,7 @@ const app = koa();
 const config = require('config');
 const fs = require('fs');
 const Router = require('koa-router');
+const mongoose = require('./db/mongoose');
 
 app.keys = [config.secret];
 

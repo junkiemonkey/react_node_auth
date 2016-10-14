@@ -12,8 +12,12 @@ exports.login = function*(next) {
     if(!info){
       that.throw(401, mess.message);
     }
-    // that.login();
-    // console.log('info- ' + info);
+    that.req.login(info, function(err){
+      console.log(err);
+    });
+
+    console.log('here')
+
     var data = {
       message: 'Your in!',
       data: {
@@ -22,6 +26,7 @@ exports.login = function*(next) {
         created: info.created
       }
     };
+
     // that.type = 'json';
     that.set('Access-Control-Allow-Credentials', true);
     that.body = data;
@@ -48,15 +53,16 @@ exports.registration = function*(next) {
 }
 
 exports.check = function*(next){
-  console.log(this.isAuthenticated());
+  var ctx = this;
+  console.log(ctx.isAuthenticated());
   // console.log(this.passport);
-  if(this.isAuthenticated()){
+  if(ctx.isAuthenticated()){
 
-    this.statusCode = 200;
-    this.body = 'ok';
+    ctx.statusCode = 200;
+    ctx.body = 'ok';
   }else {
-    this.throw(401, 'Access denied!');
+    ctx.throw(401, 'Access denied!');
   }
 
-  yield* next;
+  // yield* next;
 }
