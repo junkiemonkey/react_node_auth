@@ -1,9 +1,9 @@
 var passport = require('koa-passport');
 var User = require('mongoose').model('User');
+var mongoose = require('mongoose');
 
 
 exports.login = function*(next) {
-
   var that = this;
   yield passport.authenticate('local', function*(err, info, mess){
     if(err) {
@@ -12,6 +12,8 @@ exports.login = function*(next) {
     if(!info){
       that.throw(401, mess.message);
     }
+    // that.login();
+    // console.log('info- ' + info);
     var data = {
       message: 'Your in!',
       data: {
@@ -20,7 +22,10 @@ exports.login = function*(next) {
         created: info.created
       }
     };
+    // that.type = 'json';
+    that.set('Access-Control-Allow-Credentials', true);
     that.body = data;
+
   });
 }
 
@@ -37,6 +42,21 @@ exports.registration = function*(next) {
         created: info.created
       }
     };
+    that.type = 'json';
     that.body = data;
   });
+}
+
+exports.check = function*(next){
+  console.log(this.isAuthenticated());
+  // console.log(this.passport);
+  if(this.isAuthenticated()){
+
+    this.statusCode = 200;
+    this.body = 'ok';
+  }else {
+    this.throw(401, 'Access denied!');
+  }
+
+  yield* next;
 }

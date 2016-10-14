@@ -6,8 +6,7 @@ const config = require('config');
 const fs = require('fs');
 const Router = require('koa-router');
 
-
-// console.log(path.join(process.cwd(), 'server/config'))
+app.keys = [config.secret];
 
 var router = new Router();
 

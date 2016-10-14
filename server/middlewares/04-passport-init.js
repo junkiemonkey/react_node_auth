@@ -3,11 +3,15 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 
 passport.serializeUser(function(user, done) {
+  console.log('ser')
   done(null, user.id); // uses _id as idFieldd
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, done); // callback version checks id validity automatically
+  console.log('deser')
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 
 passport.use(new LocalStrategy({
@@ -19,8 +23,9 @@ passport.use(new LocalStrategy({
       if (err) {
         return done(err);
       }
+      console.log('checkpass:' + user.checkPassword(password));
       if (!user || !user.checkPassword(password)) {
-        // console.log(user.checkPassword(password));
+
         return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
       }
       return done(null, user);

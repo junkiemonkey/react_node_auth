@@ -7,5 +7,6 @@ const router = new Router({
 
 router.post('/auth/', controller.login);
 router.post('/registration/', controller.registration);
+router.get('/check/', controller.check);
 
 module.exports = router;

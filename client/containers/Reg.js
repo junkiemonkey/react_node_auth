@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {TextField, Paper, RaisedButton } from 'material-ui';
-import {registrate} from '../AC/reg';
+import {registrate} from '../AC/auth';
 import { connect } from 'react-redux';
 
 class Reg extends Component {

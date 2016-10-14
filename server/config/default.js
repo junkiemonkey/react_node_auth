@@ -1,5 +1,5 @@
 module.exports = {
-  secret:   'mysecret',
+  secret:   'lk@$@sdf%sf435;lig453',
   mongoose: {
     uri: 'mongodb://localhost/app',
     options: {

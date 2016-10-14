@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {login} from '../AC/login';
+import {login} from '../AC/auth';
 
 
 
@@ -11,7 +11,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount(){
-    // if()
+    if(!this.props.isAuthenticated)
     console.log(this.props);
   }
 
@@ -25,6 +25,5 @@ class Dashboard extends Component {
 }
 
 export default connect(({auth}, ...rest) => {
-  console.log(auth);
   return auth;
 },{})(Dashboard);

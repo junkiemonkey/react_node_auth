@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {TextField, Paper, RaisedButton, Dialog, FlatButton } from 'material-ui';
-import {login} from '../AC/login';
+import {login} from '../AC/auth';
 import { connect } from 'react-redux';
 import {Link, browserHistory} from 'react-router';
 
@@ -17,10 +17,16 @@ class Login extends Component {
     };
   }
 
+  static contextTypes = {
+    router: PropTypes.object,
+    store: PropTypes.object
+  }
+
   componentWillReceiveProps(props){
-    const {login} = props.auth;
-    if(login) {
-      browserHistory.push('/dashboard');
+    const {auth} = props;
+    const {router} = this.context;
+    if(auth.isAuthenticated) {
+      router.push('/dashboard');
     }else{
       this.setState({
         popup: true
@@ -133,8 +139,6 @@ class Login extends Component {
   }
 }
 
-export default connect((state) => {
-  const {auth} = state.auth;
-  // console.log(auth);
-  return { auth }
+export default connect(({auth}) => {
+  return { auth: auth }
 },{login: login})(Login);

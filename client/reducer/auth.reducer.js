@@ -1,12 +1,7 @@
-import { LOGIN, REG, SUCCESS, FAIL } from '../constants';
+import { LOGIN, REG, SUCCESS, FAIL, CHECK_AUTH } from '../constants';
 
 const defaultState = {
-  auth: {
-    login: null,
-    user: {},
-    reg: null,
-    error: null
-  }
+
 };
 
 export default (state = defaultState, action) => {
@@ -15,32 +10,30 @@ export default (state = defaultState, action) => {
   switch(type){
     case LOGIN + SUCCESS:
       return Object.assign({}, state, {
-        auth: {
-          login: true,
-          error: false,
-          user: res.data
-        }
+        isAuthenticated: true,
+        user: res.data
       });
     case LOGIN + FAIL:
       return Object.assign({}, state, {
-        auth: {
-          login: false,
-          error: true
-        }
+        isAuthenticated: false
       });
     case REG + SUCCESS:
       return Object.assign({}, state, {
-        auth: {
-          reg: true,
-          user: res.data
-        }
+        isAuthenticated: false,
+        reg: true
       });
     case REG + FAIL:
       return Object.assign({}, state, {
-        auth: {
-          reg: false,
-          error: res
-        }
+        isAuthenticated: false,
+        reg: false
+      });
+    case CHECK_AUTH + SUCCESS:
+      return Object.assign({}, state, {
+        isAuthenticated: true
+      });
+    case CHECK_AUTH + FAIL:
+      return Object.assign({}, state, {
+        isAuthenticated: false
       });
     default: return state;
   }
