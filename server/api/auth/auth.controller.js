@@ -1,6 +1,5 @@
-var passport = require('koa-passport');
-var User = require('mongoose').model('User');
-var mongoose = require('mongoose');
+const passport = require('koa-passport');
+const User = require('mongoose').model('User');
 
 
 exports.login = function*(next) {

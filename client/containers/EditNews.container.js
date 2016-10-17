@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import EditNewsComponent from '../components/EditNews.component';
 
-class News extends Component {
+class EditNews extends Component {
   constructor(props){
     super(props);
   }
@@ -13,7 +14,7 @@ class News extends Component {
   render(){
     return(
       <div>
-        <h1>News</h1>
+        <EditNewsComponent />
       </div>
     )
   }
@@ -21,4 +22,4 @@ class News extends Component {
 
 export default connect(state => {
   return state;
-}, {})(News);
+}, {})(EditNews);

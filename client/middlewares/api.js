@@ -1,4 +1,4 @@
-import {SUCCESS, FAIL, CHECK_AUTH, LOGOUT} from '../constants';
+import {SUCCESS, FAIL, CHECK_AUTH, LOGOUT, LOGIN, LOAD_ONE_NEWS, LOAD_ALL_NEWS} from '../constants';
 import $ from 'jquery';
 
 export default store => next => action => {
@@ -24,7 +24,7 @@ export default store => next => action => {
         }
       })
       break;
-    default:
+    case LOGIN:
       $.ajax({
         url: callAPI,
         type: 'POST',
@@ -39,6 +39,17 @@ export default store => next => action => {
           next({type: type + FAIL, res, ...rest});
         }
       });
+      break;
+    case LOAD_ALL_NEWS:
+      $.get(callAPI)
+        .done(res => next({type: type + SUCCESS, res, ...rest}))
+        .fail(res => next({type: type + FAIL, res, ...rest}))
+    case LOAD_ONE_NEWS:
+      $.get(callAPI)
+        .done(res => next({type: type + SUCCESS, res, ...rest}))
+        .fail(res => next({type: type + FAIL, res, ...rest}))
+    default:
+      next(action)
   }
 
 

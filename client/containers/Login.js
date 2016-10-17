@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {TextField, Paper, RaisedButton, Dialog, FlatButton } from 'material-ui';
-import {login} from '../AC/auth';
+import {login} from '../AC/auth.AC';
 import { connect } from 'react-redux';
 import {Link, browserHistory} from 'react-router';
 

@@ -4,7 +4,7 @@ import { AppBar, IconButton, IconMenu, MenuItem, Paper } from 'material-ui';
 import { connect } from 'react-redux';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import {logout} from '../AC/auth';
+import {logout} from '../AC/auth.AC';
 
 class Header extends Component {
   static propTypes = {

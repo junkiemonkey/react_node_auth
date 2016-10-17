@@ -18,6 +18,7 @@ middlewares.forEach(function(middleware) {
 });
 
 require('./api/auth')(app);
+require('./api/news')(app);
 
 router.get('*', function*(next){
   this.body = 'ok';
