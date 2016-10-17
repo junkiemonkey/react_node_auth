@@ -1,8 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {login} from '../AC/auth';
-
-
 
 class Dashboard extends Component {
 
@@ -10,15 +8,26 @@ class Dashboard extends Component {
     super(props);
   }
 
+  static contextTypes = {
+    router: PropTypes.object,
+    store: PropTypes.object
+  }
+
   componentDidMount(){
-    if(!this.props.isAuthenticated)
-    console.log(this.props);
+    const {router} = this.context;
+    if(!this.props.hasOwnProperty('user')) router.push('/login');
   }
 
   render(){
+    let welcome = '';
+    if(this.props.hasOwnProperty('user')){
+      const {data} = this.props.user;
+      welcome = `Welcome ${data.name}!`;
+    }
+
     return (
       <div>
-        <h1>Welcome Admin!</h1>
+        <h1>{welcome}</h1>
       </div>
     );
   }

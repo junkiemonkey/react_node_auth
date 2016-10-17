@@ -25,7 +25,7 @@ class Login extends Component {
   componentWillReceiveProps(props){
     const {auth} = props;
     const {router} = this.context;
-    if(auth.isAuthenticated) {
+    if(auth.user.isAuthenticated) {
       router.push('/dashboard');
     }else{
       this.setState({

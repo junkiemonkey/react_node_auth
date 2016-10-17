@@ -13,7 +13,7 @@ body {
 }
 .container {
   max-width: 1200px;
-  margin: 30px auto 0;
+  margin: 30px auto;
   position: relative;
 }
 .login {
@@ -47,4 +47,12 @@ body {
     color: #00BCD4;
     font-weight: 500;
   }
+}
+
+.img {
+  display: block;
+  max-width: 100%;
+}
+h1 {
+  padding-top: 30px;
 }

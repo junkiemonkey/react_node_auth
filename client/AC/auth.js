@@ -1,5 +1,5 @@
 "use strict";
-import {LOGIN, REG, CHECK_AUTH} from '../constants';
+import {LOGIN, REG, CHECK_AUTH, LOGOUT} from '../constants';
 
 export function login(email, password) {
   return {
@@ -7,6 +7,13 @@ export function login(email, password) {
     payload: {email, password},
     callAPI: '/api/auth/'
   };
+}
+
+export function logout(){
+  return {
+    type: LOGOUT,
+    callAPI: '/api/logout/'
+  }
 }
 
 export function registrate(username, email, password){

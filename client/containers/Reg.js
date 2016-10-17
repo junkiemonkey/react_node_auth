@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {TextField, Paper, RaisedButton } from 'material-ui';
 import {registrate} from '../AC/auth';
 import { connect } from 'react-redux';
@@ -17,6 +17,19 @@ class Reg extends Component {
       passField: false,
       confirmField: false
     };
+  }
+  static contextTypes = {
+    router: PropTypes.object,
+    store: PropTypes.object
+  }
+
+
+  componentWillReceiveProps(props){
+    const {reg} = props.auth.user;
+    const {router} = this.context;
+    if(reg) {
+      router.push('/login');
+    }
   }
 
   render(){

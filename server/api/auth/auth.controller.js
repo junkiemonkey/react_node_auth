@@ -16,12 +16,10 @@ exports.login = function*(next) {
       console.log(err);
     });
 
-    console.log('here')
-
     var data = {
       message: 'Your in!',
       data: {
-        username: info.username,
+        name: info.username,
         email: info.email,
         created: info.created
       }
@@ -34,6 +32,13 @@ exports.login = function*(next) {
   });
 }
 
+exports.logout = function*(next){
+  this.req.logout();
+  this.session = null;
+  this.statusCode = 200;
+  this.body = 'You logged out!';
+}
+
 exports.registration = function*(next) {
   var that = this;
   yield passport.authenticate('local-signup', function*(err, info){
@@ -42,7 +47,7 @@ exports.registration = function*(next) {
     var data = {
       message: 'User Saved!',
       data: {
-        username: info.username,
+        name: info.username,
         email: info.email,
         created: info.created
       }
@@ -53,15 +58,16 @@ exports.registration = function*(next) {
 }
 
 exports.check = function*(next){
-  var ctx = this;
-  console.log(ctx.isAuthenticated());
-  // console.log(this.passport);
-  if(ctx.isAuthenticated()){
 
-    ctx.statusCode = 200;
-    ctx.body = 'ok';
+  if(this.isAuthenticated()){
+    const user = {
+      email: this.passport.user.email,
+      name: this.passport.user.username
+    };
+    this.statusCode = 200;
+    this.body = user;
   }else {
-    ctx.throw(401, 'Access denied!');
+    this.throw(401, 'Access denied!');
   }
 
   // yield* next;

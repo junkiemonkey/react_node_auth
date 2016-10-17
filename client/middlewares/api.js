@@ -1,4 +1,4 @@
-import {SUCCESS, FAIL, CHECK_AUTH} from '../constants';
+import {SUCCESS, FAIL, CHECK_AUTH, LOGOUT} from '../constants';
 import $ from 'jquery';
 
 export default store => next => action => {
@@ -12,6 +12,18 @@ export default store => next => action => {
         .done(res => next({type: type + SUCCESS, res, ...rest}))
         .fail(res => next({type: type + FAIL, res, ...rest}));
         break;
+    case LOGOUT:
+      $.ajax({
+        url: callAPI,
+        type: 'POST',
+        success(res){
+          next({type: type + SUCCESS, res, ...rest});
+        },
+        error(res){
+          next({type: type + FAIL, res, ...rest});
+        }
+      })
+      break;
     default:
       $.ajax({
         url: callAPI,

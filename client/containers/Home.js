@@ -5,7 +5,8 @@ class HomeContainer extends Component {
   render(){
     return (
       <div>
-        <h1>Home Container</h1>
+        <h1>Home Page</h1>
+        <img src="images/img1.jpg" className="img"  alt=""/>
       </div>
     )
   }
