@@ -12,14 +12,15 @@ class EditNews extends Component {
   }
 
   render(){
+    const {newslist, slug} = this.props;
     return(
       <div>
-        <EditNewsComponent />
+        <EditNewsComponent newslist={newslist} slug={slug} />
       </div>
     )
   }
 }
 
-export default connect(state => {
-  return state;
+export default connect(({news}, ...rest) => {
+  return {newslist: news};
 }, {})(EditNews);

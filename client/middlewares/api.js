@@ -1,10 +1,13 @@
-import {SUCCESS, FAIL, CHECK_AUTH, LOGOUT, LOGIN, LOAD_ONE_NEWS, LOAD_ALL_NEWS} from '../constants';
+import {SUCCESS, FAIL, CHECK_AUTH, LOGOUT, LOGIN, LOAD_ONE_NEWS, LOAD_ALL_NEWS, SAVE_NEWS, DELETE_NEWS, UPDATE_NEWS} from '../constants';
 import $ from 'jquery';
 
 export default store => next => action => {
   const {callAPI, type, payload, ...rest} = action;
 
+  console.log(action);
+
   if (!callAPI) return next(action);
+  if(rest.hasOwnProperty('isNew')) return next(action);
 
   switch (type) {
     case CHECK_AUTH:
@@ -43,11 +46,50 @@ export default store => next => action => {
     case LOAD_ALL_NEWS:
       $.get(callAPI)
         .done(res => next({type: type + SUCCESS, res, ...rest}))
-        .fail(res => next({type: type + FAIL, res, ...rest}))
+        .fail(res => next({type: type + FAIL, res, ...rest}));
+      break;
     case LOAD_ONE_NEWS:
       $.get(callAPI)
         .done(res => next({type: type + SUCCESS, res, ...rest}))
-        .fail(res => next({type: type + FAIL, res, ...rest}))
+        .fail(res => next({type: type + FAIL, res, ...rest}));
+      break;
+    case SAVE_NEWS:
+      $.ajax({
+        url: callAPI,
+        type: 'POST',
+        data: payload,
+        success(res){
+          next({type: type + SUCCESS, res, ...rest});
+        },
+        error(res){
+          next({type: type + FAIL, res, ...rest});
+        }
+      });
+      break;
+    case DELETE_NEWS:
+      $.ajax({
+        url: callAPI,
+        type: 'DELETE',
+        success(res){
+          next({type: type + SUCCESS, res, ...rest});
+        },
+        error(res){
+          next({type: type + FAIL, res, ...rest});
+        }
+      });
+      break;
+    case UPDATE_NEWS:
+      $.ajax({
+        url: callAPI,
+        type: 'PATCH',
+        success(res){
+          next({type: type + SUCCESS, res, ...rest});
+        },
+        error(res){
+          next({type: type + FAIL, res, ...rest});
+        }
+      });
+      break;
     default:
       next(action)
   }

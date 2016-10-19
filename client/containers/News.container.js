@@ -5,9 +5,7 @@ import {loadAllNews} from '../AC/news.AC';
 
 
 class News extends Component {
-  constructor(props){
-    super(props);
-  }
+
   componentDidMount(){
     const {loadAllNews} = this.props;
     loadAllNews();
@@ -19,7 +17,6 @@ class News extends Component {
   }
 
   render(){
-    console.log(this.props);
     return(
       <div>
         <h1>News</h1>

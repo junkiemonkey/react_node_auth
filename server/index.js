@@ -27,3 +27,10 @@ router.get('*', function*(next){
 app.use(router.routes());
 
 app.listen(3000);
+
+module.exports = app;
+
+// module.exports = {
+//   server : server,
+//   app : app
+// };

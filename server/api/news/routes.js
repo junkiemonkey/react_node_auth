@@ -5,6 +5,10 @@ const router = new Router({
   prefix: '/api'
 });
 
-router.get('/news/', controller.getAllNews);
+router
+  .param('newsById', controller.newsById)
+  .get('/news/', controller.getAllNews)
+  .post('/news/', controller.saveNews)
+  .del('/news/:newsById', controller.deleteNews)
 
 module.exports = router;

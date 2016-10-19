@@ -8,6 +8,7 @@ import Dashboard from './containers/Dashboard.container';
 import checkAuth from './utils/checkAuth';
 import News from './containers/News.container';
 import EditNews from './containers/EditNews.container';
+import EditNewsHandler from './routeHandlers/newsHandler';
 
 export default (
   <Router history = {browserHistory}>
@@ -16,7 +17,8 @@ export default (
       <Route path="login" component={Login} />
       <Route path="registration" component={Reg} />
       <Route path="dashboard" component={Dashboard}>
-        <Route path="new" component={EditNews}></Route>
+        <Route path="new" component={EditNews} />
+        <Route path="edit/:slug" component={EditNewsHandler} />
       </Route>
       <Route path="news" component={News} />
     </Route>

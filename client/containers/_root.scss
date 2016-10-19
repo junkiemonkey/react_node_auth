@@ -59,3 +59,10 @@ h1 {
 .tab_pane {
   padding: 30px 40px;
 }
+.news-editor {
+  max-width: 600px;
+  margin: auto;
+  &__field {
+    //margin-bottom: 15px;
+  }
+}

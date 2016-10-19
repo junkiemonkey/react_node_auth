@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import {List, ListItem} from 'material-ui';
 
 class NewsList extends Component {
-  constructor(props){
-    super(props);
-  }
+
   static propTypes = {
 
   }
@@ -12,17 +10,15 @@ class NewsList extends Component {
   render(){
     let {newslist} = this.props;
     if(newslist){
-      newslist.map(news => {
-        return <ListItem primaryText={news.title} />
+      var newsItems = newslist.map(news => {
+        return <ListItem style={{border: '1px solid #ccc'}} key={news._id} primaryText={news.title} />
       })
     }else {
       newslist = null;
     }
     return(
       <div>
-        <List>
-          {newslist}
-        </List>
+        <List children={newsItems} />
       </div>
     )
   }

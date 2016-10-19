@@ -7,3 +7,8 @@ export const FAIL = '_FAIL';
 
 export const LOAD_ALL_NEWS = 'LOAD_ALL_NEWS';
 export const LOAD_ONE_NEWS = 'LOAD_ONE_NEWS';
+export const DELETE_NEWS = 'DELETE_NEWS';
+export const EDIT_NEWS = 'EDIT_NEWS';
+export const SAVE_NEWS = 'SAVE_NEWS';
+export const ADD_NEWS = 'ADD_NEWS';
+export const UPDATE_NEWS = 'UPDATE_NEWS';

@@ -69,11 +69,11 @@ class Login extends Component {
           </div>
         </Paper>
         <Dialog
-          title="Error"
+          title="Access denied!"
           actions={actions}
           modal={true}
           open={this.state.popup}
-        >Error login!</Dialog>
+        >Login or Password is wrong!</Dialog>
       </div>
     )
   }
