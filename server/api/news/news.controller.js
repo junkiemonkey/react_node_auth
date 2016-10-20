@@ -1,3 +1,4 @@
+'use strict';
 const News = require('../../models/news');
 const slug = require('slugify');
 const mongoose = require('../../db/mongoose');
@@ -9,8 +10,13 @@ exports.getAllNews = function*(next){
 }
 
 exports.saveNews = function*(next){
-  var data = this.request.body;
+  const data = this.request.body;
+  const ctx = this;
   data.slug = slug(data.title);
+  let check = yield News.count({slug: data.slug}, function(err){
+    if(err) ctx.throw(err);
+  });
+  if(check) this.throw(400, 'Title must be a uniq field!');
   var new_news = yield News.create(data);
   this.body = new_news.toObject();
 }
@@ -26,7 +32,44 @@ exports.newsById = function*(id, next){
   yield* next;
 }
 
+exports.newsBySlug = function* (slug, next) {
+  if(!slug) this.throw(400);
+  this.slug = slug;
+  yield* next;
+}
+
 exports.deleteNews = function*(next){
   yield this.newsById.remove();
   this.body = 'Item deleted successfully!';
+}
+
+exports.updateNews = function* (next) {
+  const data = this.request.body;
+  const newData = {};
+  const ctx = this;
+  if(data.title.length){
+    newData.title = data.title;
+    newData.slug = slug(data.title);
+  }
+  if(data.text.length){
+    newData.text = data.text;
+  }
+
+  if(newData.slug){
+    let check = yield News.count({slug: newData.slug}, function(err){
+      if(err) ctx.throw(err);
+    });
+    if(check) this.throw(400, 'Title must be a uniq field!');
+  }
+
+  var updated_news = yield News.findOneAndUpdate({
+    slug: this.slug
+  },{
+    $set: newData
+  }, {
+    new: true
+  });
+
+  this.body = updated_news.toObject();
+
 }

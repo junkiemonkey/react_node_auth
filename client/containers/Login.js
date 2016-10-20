@@ -46,7 +46,7 @@ class Login extends Component {
 
     return (
       <div className="login">
-        <h2 >Login Page</h2>
+        <h2 >Log In</h2>
         <Paper zDepth={5} style={{textAlign: 'center'}}>
           <TextField
             onChange={this.emailChange}
@@ -65,7 +65,7 @@ class Login extends Component {
             primary={true}
             label="Log in" />
           <div className="reg_link">
-            <Link to="/registration">Registration</Link>
+            <Link to="/registration">Sign Up</Link>
           </div>
         </Paper>
         <Dialog

@@ -33,7 +33,6 @@ passport.use(new LocalStrategy({
 passport.use('local-signup', new LocalStrategy({
     usernameField : 'email',
     passwordField : 'password',
-    session: false,
     passReqToCallback : true
   },
   function(req, email, password, done){

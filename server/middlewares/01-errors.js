@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = function*(next) {
-
   try {
     yield* next;
   } catch (e) {

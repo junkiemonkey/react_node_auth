@@ -4,8 +4,6 @@ import $ from 'jquery';
 export default store => next => action => {
   const {callAPI, type, payload, ...rest} = action;
 
-  console.log(action);
-
   if (!callAPI) return next(action);
   if(rest.hasOwnProperty('isNew')) return next(action);
 
@@ -82,6 +80,7 @@ export default store => next => action => {
       $.ajax({
         url: callAPI,
         type: 'PATCH',
+        data: payload,
         success(res){
           next({type: type + SUCCESS, res, ...rest});
         },

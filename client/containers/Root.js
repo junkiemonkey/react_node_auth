@@ -25,7 +25,7 @@ class RootContainer extends Component {
         <MuiThemeProvider>
           <div>
             <Header />
-            <div className="container"><Paper style={styles} children={this.props.children} /></div>
+            <div className="container"><Paper zDepth={0} style={styles} children={this.props.children} /></div>
           </div>
         </MuiThemeProvider>
       </Provider>

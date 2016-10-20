@@ -14,14 +14,6 @@ function getURL(path){
 
 describe('REST API SERVER', function(){
 
-  // before(function(done){
-  //   app.listen(3000, done);
-  // });
-
-  // after(function(done) {
-  //   server.close(done);
-  // });
-
 
   describe('User REST API', function(){
 
@@ -32,7 +24,7 @@ describe('REST API SERVER', function(){
     let existNewsData = {
       title: 'News title',
       text: 'News text',
-      slug: 'news-title'
+      slug: 'News-title'
     };
     let newNewsData = {
       title: 'New News Title',
@@ -44,31 +36,91 @@ describe('REST API SERVER', function(){
       existingNews = yield News.create(existNewsData);
     });
 
-    it('CREATE NEWS', function*(){
-      let response = yield request({
-        method: 'POST',
-        url: getURL('/news/'),
-        json: true,
-        body: newNewsData
+    describe('CREATE NEWS', function(){
+      it('POST /news/', function*(){
+        let res = yield request({
+          method: 'POST',
+          url: getURL('/news/'),
+          json: true,
+          body: newNewsData
+        });
+        // console.log(response.body);
+        res.body.title.should.exist;
+        res.body.text.should.exist;
+        res.body.slug.should.exist;
       });
-      // console.log(response.body);
-      response.body.title.should.exist;
-      response.body.text.should.exist;
-      response.body.slug.should.exist;
+      it('POST /news/ -- existing title', function* () {
+        let res = yield request({
+          method: 'POST',
+          url: getURL('/news/'),
+          json: true,
+          body: {
+            title: 'News title',
+            text: 'News text',
+          }
+        });
+        res.statusCode.should.equal(400);
+        res.body.error.should.exist;
+        res.body.error.should.be.String();
+      })
+    })
+
+
+
+    describe('UPDATE NEWS', function(){
+      it('PATCH /news/:slug', function* () {
+        let res = yield request({
+          method: 'PATCH',
+          url: getURL(`/news/${existingNews.slug}`),
+          json: true,
+          body: {
+            title: 'ZEUS title',
+            text: 'text'
+          }
+        });
+        res.statusCode.should.equal(200);
+        res.headers['content-type'].should.match(/application\/json/);
+        res.body.title.should.equal('ZEUS title');
+        res.body.text.should.equal('text');
+        res.body.slug.should.equal('ZEUS-title');
+        res.body._id.should.eql(existingNews.id);
+      });
+      it('PATCH /news/:slug - exist news title', function*(){
+        yield request({
+          method: 'POST',
+          url: getURL('/news/'),
+          json: true,
+          body: {
+            title: 'another news',
+            text: 'text'
+          }
+        });
+        let res = yield request({
+          method: 'PATCH',
+          url: getURL(`/news/${existingNews.slug}`),
+          json: true,
+          body: {
+            title: 'another news',
+            text: 'text'
+          }
+        });
+        console.log(res.body);
+        res.statusCode.should.equal(400);
+        res.body.error.should.exist;
+        res.body.error.should.be.String();
+      });
     });
+
+
 
     it('DELETE NEWS', function*(){
       let response = yield request.del(getURL(`/news/${existingNews._id}`));
-      response.statusCode.should.equal(200);
+      response.statusCode.should.be.equal(200);
       response.body.should.be.String();
     });
 
     it('GET /', function*(){
       let response = yield request.get(getURL('/news/'));
-      // assert.equal(response.statusCode, 200, 'its OK!');
-      // assert.match(response.headers['content-type'], /application\/json/, 'Content type matched!')
-      // assert.equal(JSON.parse(response.body).length, 1, 'JSON length is OK')
-      // expect(response.statusCode).to.equal(200);
       response.statusCode.should.eql(200);
       response.headers['content-type'].should.match(/application\/json/);
       JSON.parse(response.body).length.should.eql(1);

@@ -1,7 +1,7 @@
 const mongoose = require('../db/mongoose');
 const Shcema = mongoose.Schema;
 
-var newsSchema = new Shcema({
+var NewsSchema = new Shcema({
   title: {
     type: String,
     required: 'Title is required'
@@ -12,8 +12,9 @@ var newsSchema = new Shcema({
   },
   slug: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   }
 });
 
-module.exports = mongoose.model('News', newsSchema);
+module.exports = mongoose.model('News', NewsSchema);

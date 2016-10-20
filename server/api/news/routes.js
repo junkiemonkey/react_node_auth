@@ -7,8 +7,10 @@ const router = new Router({
 
 router
   .param('newsById', controller.newsById)
+  .param('newsBySlug', controller.newsBySlug)
   .get('/news/', controller.getAllNews)
   .post('/news/', controller.saveNews)
+  .patch('/news/:newsBySlug', controller.updateNews)
   .del('/news/:newsById', controller.deleteNews)
 
 module.exports = router;

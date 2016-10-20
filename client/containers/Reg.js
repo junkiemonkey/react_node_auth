@@ -35,7 +35,7 @@ class Reg extends Component {
   render(){
     return (
       <div className="login">
-        <h2 >Registration Page</h2>
+        <h2 >Sign Up</h2>
         <Paper zDepth={5} style={{textAlign: 'center'}}>
           <TextField
             onChange={this.nameChange}

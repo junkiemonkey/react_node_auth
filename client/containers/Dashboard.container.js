@@ -33,7 +33,7 @@ class Dashboard extends Component {
     }
     return (
       <div>
-        <h1>{welcome}</h1>
+        <h1>Dashboard</h1>
         <Tabs contentContainerClassName="tab_pane">
           <Tab label="News">
             {news.is_new_news || news.is_edit_news ? this.props.children : <DashboardNews newslist={news.news}/>}

@@ -51,13 +51,16 @@ body {
 
 .img {
   display: block;
-  max-width: 100%;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  max-width: 350px;
 }
 h1 {
   padding-top: 30px;
 }
 .tab_pane {
-  padding: 30px 40px;
+  padding: 30px 0px;
 }
 .news-editor {
   max-width: 600px;
@@ -65,4 +68,12 @@ h1 {
   &__field {
     //margin-bottom: 15px;
   }
+}
+.hello-message {
+  color: #fff;
+  font-size: 18px;
+  display: inline-block;
+  margin-right: 15px;
+  vertical-align: top;
+  margin-top: 13px;
 }

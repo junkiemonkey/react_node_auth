@@ -41,7 +41,8 @@ export default (state = defaultState, action) => {
       });
     case SAVE_NEWS + FAIL:
       return Object.assign({}, state, {
-        news_saved: false
+        news_saved: false,
+        is_new_news: false
       });
     case DELETE_NEWS + SUCCESS:
       const {newsid} = rest;
@@ -52,7 +53,10 @@ export default (state = defaultState, action) => {
     case DELETE_NEWS + FAIL:
       return state;
     case UPDATE_NEWS + SUCCESS:
+      const updateNewsList = state.news.filter(nw => nw._id != res._id);
+      const updatedNews = updateNewsList.concat([res]);
       return Object.assign({}, state, {
+        news: updatedNews,
         news_saved: true,
         is_edit_news: false
       });
