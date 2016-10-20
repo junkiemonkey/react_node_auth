@@ -7,7 +7,12 @@ exports.getAllNews = function*(next){
   var newslist = yield News.find({}).lean();
   this.statusCode = 200;
   this.body = newslist;
-}
+};
+
+exports.getOneNews = function*(next){
+  if(!this.newsBySlug) this.throw(404, 'News not found!');
+  this.body = this.newsBySlug;
+};
 
 exports.saveNews = function*(next){
   const data = this.request.body;
@@ -19,7 +24,7 @@ exports.saveNews = function*(next){
   if(check) this.throw(400, 'Title must be a uniq field!');
   var new_news = yield News.create(data);
   this.body = new_news.toObject();
-}
+};
 
 exports.newsById = function*(id, next){
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -30,18 +35,19 @@ exports.newsById = function*(id, next){
     this.throw(404);
   }
   yield* next;
-}
+};
 
 exports.newsBySlug = function* (slug, next) {
   if(!slug) this.throw(400);
   this.slug = slug;
+  this.newsBySlug = yield News.findOne({slug:slug});
   yield* next;
-}
+};
 
 exports.deleteNews = function*(next){
   yield this.newsById.remove();
   this.body = 'Item deleted successfully!';
-}
+};
 
 exports.updateNews = function* (next) {
   const data = this.request.body;
@@ -72,4 +78,4 @@ exports.updateNews = function* (next) {
 
   this.body = updated_news.toObject();
 
-}
+};

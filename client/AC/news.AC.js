@@ -9,11 +9,11 @@ export function loadAllNews(){
   };
 }
 
-export function loadOneNews(id){
+export function loadOneNews(slug){
   return {
     type: LOAD_ONE_NEWS,
     // newsid: id,
-    callAPI: url + `${id}`
+    callAPI: url + `${slug}`
   };
 }
 

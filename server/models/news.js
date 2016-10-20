@@ -10,6 +10,14 @@ var NewsSchema = new Shcema({
     type: String,
     required: 'Text is required'
   },
+  image: {
+    type: String,
+    required: true
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  },
   slug: {
     type: String,
     required: true,

@@ -43,7 +43,6 @@ class Header extends Component {
   };
 
   logMenu = (props) => {
-    console.log(this.props);
     const {user} = this.props;
     const hasUser = user && user.isAuthenticated;
     return (

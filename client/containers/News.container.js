@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import NewsList from '../components/NewsList.component';
+import NewsList from '../components/News.component';
 import {loadAllNews} from '../AC/news.AC';
 
 
@@ -17,6 +17,7 @@ class News extends Component {
   }
 
   render(){
+    // console.log(this.props);
     return(
       <div>
         <h1>News</h1>

@@ -52,10 +52,17 @@ export default store => next => action => {
         .fail(res => next({type: type + FAIL, res, ...rest}));
       break;
     case SAVE_NEWS:
+      const fd = new FormData();
+      for(let key in payload){
+        fd.append(key, payload[key])
+      }
       $.ajax({
         url: callAPI,
         type: 'POST',
-        data: payload,
+        data: fd,
+        cache: false,
+        contentType: false,
+        processData: false,
         success(res){
           next({type: type + SUCCESS, res, ...rest});
         },

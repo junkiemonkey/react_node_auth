@@ -19,8 +19,10 @@ class EditNewsComponent extends Component {
   state = {
     title: '',
     text: '',
+    file: null,
     titleField: false,
     textField: false,
+    fileField: false,
     error: ''
   }
 
@@ -54,11 +56,26 @@ class EditNewsComponent extends Component {
               rowsMax={10}
               floatingLabelText="Text" />
           </div>
+          <div className="news-editor__field">
+            <TextField
+              id="file"
+              errorText={this.state.fileField ? this.state.error : ''}
+              type="file"
+              onChange={this.fileHandler} />
+          </div>
           <RaisedButton label="Save" primary={true} icon={<SaveIcon />} onClick={this.saveHandler} />
           <FlatButton label="Go back" primary={true} icon={<BackIcon />} onClick={this.goBack} />
         </div>
       </div>
     );
+  }
+
+  fileHandler = e => {
+    console.log(e.target.files[0]);
+    this.setState({
+      file: e.target.files[0],
+      fileField:false
+    });
   }
 
   goBack = () => {
@@ -84,7 +101,8 @@ class EditNewsComponent extends Component {
     if(!this._validator(this.state)) return;
     const data = {
       title: this.state.title,
-      text: this.state.text
+      text: this.state.text,
+      file: this.state.file
     }
     const {saveNews, newslist, slug, updateNews} = this.props;
     const {router} = this.context;
@@ -100,8 +118,10 @@ class EditNewsComponent extends Component {
   _validator = state => {
     const {newslist} = this.props;
     const is_edit = newslist.hasOwnProperty('is_edit_news') && newslist.is_edit_news;
-    const {title, text} = state;
+    const {title, text, file} = state;
     const error = 'This field is required';
+    const alowedTypes = ['images/png', 'image/jpeg'];
+    const typeError = file ? `Type ${file.type} not allowed! Only ${alowedTypes}` : '';
     if(title == '' && !is_edit){
       this.setState({
         titleField: true,
@@ -125,6 +145,19 @@ class EditNewsComponent extends Component {
         textField: false,
         error: ''
       });
+    }
+    if(file == null && !is_edit){
+      this.setState({
+        fileField: true,
+        error: error
+      });
+      return false;
+    }else if(file && alowedTypes.indexOf(file.type) == -1){
+      this.setState({
+        fileField: true,
+        error: typeError
+      });
+      return false
     }
     return true;
   }

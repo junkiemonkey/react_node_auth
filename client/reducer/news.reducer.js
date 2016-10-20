@@ -5,6 +5,7 @@ const defaultState = {};
 
 export default (state = defaultState, action) => {
   const {type, res, isNew, ...rest} = action;
+
   switch (type) {
     case LOAD_ALL_NEWS + SUCCESS:
       return Object.assign({}, state, {
@@ -14,8 +15,8 @@ export default (state = defaultState, action) => {
       return state;
     case LOAD_ONE_NEWS + SUCCESS:
       return Object.assign({}, state, {
-        one_news: res.data
-      });;
+        one_news: res
+      });
     case LOAD_ONE_NEWS + FAIL:
       return state;
     case ADD_NEWS:
