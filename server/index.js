@@ -26,7 +26,7 @@ router.get('*', function*(next){
 
 app.use(router.routes());
 
-app.listen(80, '');
+app.listen(80, '10.129.1.206');
 
 module.exports = app;
 
