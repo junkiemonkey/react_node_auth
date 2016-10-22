@@ -21,7 +21,7 @@ require('./api/auth')(app);
 require('./api/news')(app);
 
 router.get('*', function*(next){
-  this.body = 'ok';
+  this.body = './index.html';
 });
 
 app.use(router.routes());
