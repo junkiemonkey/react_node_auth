@@ -1,9 +1,9 @@
 "use strict";
 
-const server = require('../server');
-const request = require('co-request');
-const expect = require('chai').expect;
-const assert = require('chai').assert;
+var server = require('../server');
+var request = require('co-request');
+var expect = require('chai').expect;
+var assert = require('chai').assert;
 
 var User = require('../server/models/user');
 var News = require('../server/models/news');
