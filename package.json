@@ -8,7 +8,8 @@
     "start": "concurrently \"npm run dev\" \"npm run api\"",
     "dev": "webpack-dev-server --hot --inline",
     "api": "nodemon server/index.js",
-    "db": "mongod --dbpath=e:/data"
+    "db": "mongod --dbpath=e:/data",
+    "build:prod": "set NODE_ENV=production&&webpack -p"
   },
   "engines": {
     "node": ">=0.10.*",

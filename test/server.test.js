@@ -9,7 +9,7 @@ var User = require('../server/models/user');
 var News = require('../server/models/news');
 
 function getURL(path){
-  return `http://localhost:3000/api${path}`;
+  return 'http://localhost:3000/api' + path;
 }
 
 describe('REST API SERVER', function(){
@@ -21,20 +21,20 @@ describe('REST API SERVER', function(){
 
 
   describe('News REST API', function(){
-    let img = '/images/img.jpg';
-    let text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur distinctio dolores doloribus eius expedita explicabo iste neque nostrum omnis perferendis repellat sunt, tenetur? Eum excepturi facilis fugiat minima possimus quos? Deleniti dolores error laborum modi numquam. Aliquid amet atque, beatae blanditiis corporis debitis deserunt distinctio doloribus ea error est eveniet impedit incidunt molestiae molestias necessitatibus nesciunt nobis numquam officiis optio perspiciatis porro quaerat quasi quibusdam quisquam rem sapiente suscipit, ut voluptatibus voluptatum. Autem eveniet excepturi, inventore quae quam quasi quo sed voluptatum? Aliquid, beatae commodi doloribus facilis labore magni molestiae nostrum quidem reprehenderit ullam velit voluptatibus. Accusantium aspernatur assumenda cum et ex explicabo, incidunt ipsum maxime molestiae molestias natus nihil nisi obcaecati perferendis quam recusandae sed sint sit? Aspernatur, at commodi consequatur consequuntur delectus deserunt incidunt nam quae quam recusandae rem repellendus soluta, tenetur ut veritatis! At beatae blanditiis consequuntur culpa cum dicta dolores eaque error esse ex fugit incidunt, ipsum iste itaque laboriosam magni nemo officiis placeat porro quasi quia quibusdam quos ratione sed sit tempore tenetur totam vel veritatis voluptatibus. Expedita fuga omnis porro repellat veritatis voluptas, voluptatem voluptates voluptatibus. Blanditiis cumque delectus deleniti, eos impedit iure magni molestiae natus nisi numquam officia, quam quas ut vero!'
-    let existNewsData = {
+    var img = '/images/img.jpg';
+    var text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur distinctio dolores doloribus eius expedita explicabo iste neque nostrum omnis perferendis repellat sunt, tenetur? Eum excepturi facilis fugiat minima possimus quos? Deleniti dolores error laborum modi numquam. Aliquid amet atque, beatae blanditiis corporis debitis deserunt distinctio doloribus ea error est eveniet impedit incidunt molestiae molestias necessitatibus nesciunt nobis numquam officiis optio perspiciatis porro quaerat quasi quibusdam quisquam rem sapiente suscipit, ut voluptatibus voluptatum. Autem eveniet excepturi, inventore quae quam quasi quo sed voluptatum? Aliquid, beatae commodi doloribus facilis labore magni molestiae nostrum quidem reprehenderit ullam velit voluptatibus. Accusantium aspernatur assumenda cum et ex explicabo, incidunt ipsum maxime molestiae molestias natus nihil nisi obcaecati perferendis quam recusandae sed sint sit? Aspernatur, at commodi consequatur consequuntur delectus deserunt incidunt nam quae quam recusandae rem repellendus soluta, tenetur ut veritatis! At beatae blanditiis consequuntur culpa cum dicta dolores eaque error esse ex fugit incidunt, ipsum iste itaque laboriosam magni nemo officiis placeat porro quasi quia quibusdam quos ratione sed sit tempore tenetur totam vel veritatis voluptatibus. Expedita fuga omnis porro repellat veritatis voluptas, voluptatem voluptates voluptatibus. Blanditiis cumque delectus deleniti, eos impedit iure magni molestiae natus nisi numquam officia, quam quas ut vero!'
+    var existNewsData = {
       title: 'News title',
       text: text,
       image: img,
       slug: 'News-title'
     };
-    let newNewsData = {
+    var newNewsData = {
       title: 'New News Title',
       text: text,
       image: img
     };
-    let existingNews;
+    var existingNews;
     beforeEach(function*(){
       yield News.remove();
       existingNews = yield News.create(existNewsData);
@@ -42,7 +42,7 @@ describe('REST API SERVER', function(){
 
     describe('CREATE NEWS', function(){
       it('POST /news/', function*(){
-        let res = yield request({
+        var res = yield request({
           method: 'POST',
           url: getURL('/news/'),
           json: true,
@@ -54,7 +54,7 @@ describe('REST API SERVER', function(){
         res.body.slug.should.exist;
       });
       it('POST /news/ -- existing title', function* () {
-        let res = yield request({
+        var res = yield request({
           method: 'POST',
           url: getURL('/news/'),
           json: true,
@@ -74,7 +74,7 @@ describe('REST API SERVER', function(){
 
     describe('UPDATE NEWS', function(){
       it('PATCH /news/:slug', function* () {
-        let res = yield request({
+        var res = yield request({
           method: 'PATCH',
           url: getURL(`/news/${existingNews.slug}`),
           json: true,
@@ -102,7 +102,7 @@ describe('REST API SERVER', function(){
             image: img
           }
         });
-        let res = yield request({
+        var res = yield request({
           method: 'PATCH',
           url: getURL(`/news/${existingNews.slug}`),
           json: true,
@@ -121,14 +121,14 @@ describe('REST API SERVER', function(){
 
 
 
-    it('DELETE NEWS', function*(){
-      let response = yield request.del(getURL(`/news/${existingNews._id}`));
+    it('DEvarE NEWS', function*(){
+      var response = yield request.del(getURL(`/news/${existingNews._id}`));
       response.statusCode.should.be.equal(200);
       response.body.should.be.String();
     });
 
     it('GET /', function*(){
-      let response = yield request.get(getURL('/news/'));
+      var response = yield request.get(getURL('/news/'));
       response.statusCode.should.eql(200);
       response.headers['content-type'].should.match(/application\/json/);
       JSON.parse(response.body).length.should.eql(1);
