@@ -1,5 +1,5 @@
 const path = require('path');
-process.env.NODE_CONFIG_DIR = path.join(process.cwd(), 'server/config');
+process.env.NODE_CONFIG_DIR = path.join(process.cwd(), 'config');
 const koa = require('koa');
 const app = koa();
 const config = require('config');
