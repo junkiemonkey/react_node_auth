@@ -10,7 +10,7 @@
     "api": "nodemon server/index.js",
     "db": "mongod --dbpath=e:/data",
     "build:prod": "set NODE_ENV=production&&webpack -p",
-    "build:server": "NODE_ENV=production webpack -p"
+    "build:server": "export NODE_ENV=production webpack -p"
   },
   "engines": {
     "node": ">=0.10.*",
