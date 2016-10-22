@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {TextField, Paper, RaisedButton, Dialog, FlatButton } from 'material-ui';
-import {login} from '../AC/auth';
+import {login} from '../AC/auth.AC';
 import { connect } from 'react-redux';
 import {Link, browserHistory} from 'react-router';
 
@@ -25,7 +25,7 @@ class Login extends Component {
   componentWillReceiveProps(props){
     const {auth} = props;
     const {router} = this.context;
-    if(auth.isAuthenticated) {
+    if(auth.user.isAuthenticated) {
       router.push('/dashboard');
     }else{
       this.setState({
@@ -46,7 +46,7 @@ class Login extends Component {
 
     return (
       <div className="login">
-        <h2 >Login Page</h2>
+        <h2 >Log In</h2>
         <Paper zDepth={5} style={{textAlign: 'center'}}>
           <TextField
             onChange={this.emailChange}
@@ -65,15 +65,15 @@ class Login extends Component {
             primary={true}
             label="Log in" />
           <div className="reg_link">
-            <Link to="/registration">Registration</Link>
+            <Link to="/registration">Sign Up</Link>
           </div>
         </Paper>
         <Dialog
-          title="Error"
+          title="Access denied!"
           actions={actions}
           modal={true}
           open={this.state.popup}
-        >Error login!</Dialog>
+        >Login or Password is wrong!</Dialog>
       </div>
     )
   }

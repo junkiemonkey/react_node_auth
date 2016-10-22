@@ -18,6 +18,7 @@ middlewares.forEach(function(middleware) {
 });
 
 require('./api/auth')(app);
+require('./api/news')(app);
 
 router.get('*', function*(next){
   this.body = 'ok';
@@ -26,3 +27,10 @@ router.get('*', function*(next){
 app.use(router.routes());
 
 app.listen(3000);
+
+module.exports = app;
+
+// module.exports = {
+//   server : server,
+//   app : app
+// };

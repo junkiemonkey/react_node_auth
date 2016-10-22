@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  devtool: '#cheap-module-source-map',
+  devtool: 'source-map',
   entry: {
     bundle: './client/app.js',
     style: './client/app.scss'

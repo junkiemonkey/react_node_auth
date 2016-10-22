@@ -6,6 +6,7 @@ const router = new Router({
 });
 
 router.post('/auth/', controller.login);
+router.post('/logout/', controller.logout);
 router.post('/registration/', controller.registration);
 router.get('/check/', controller.check);
 

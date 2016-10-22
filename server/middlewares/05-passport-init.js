@@ -21,7 +21,6 @@ passport.use(new LocalStrategy({
       if (err) {
         return done(err);
       }
-      console.log('checkpass:' + user.checkPassword(password));
       if (!user || !user.checkPassword(password)) {
 
         return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
@@ -34,7 +33,6 @@ passport.use(new LocalStrategy({
 passport.use('local-signup', new LocalStrategy({
     usernameField : 'email',
     passwordField : 'password',
-    session: false,
     passReqToCallback : true
   },
   function(req, email, password, done){

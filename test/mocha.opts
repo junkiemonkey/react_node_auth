@@ -1,0 +1,7 @@
+--reporter spec
+--colors
+--timeout 2000
+--require should
+--require co-mocha
+--require chai
+--recursive
