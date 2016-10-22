@@ -1,7 +1,7 @@
 module.exports = {
   secret:   'secret',
   mongoose: {
-    uri: 'mongodb://localhost/app',
+    uri: 'mongodb://10.129.1.206/app',
     options: {
       server: {
         socketOptions: {
