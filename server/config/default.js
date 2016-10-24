@@ -16,7 +16,7 @@ module.exports = {
   },
   server: {
     url: prod ? '10.129.1.206' : 'localhost',
-    port: prod ? 80 : 3000
+    port: prod ? 8080 : 3000
   },
   crypto: {
     hash: {
