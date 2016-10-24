@@ -1,4 +1,4 @@
-var prod = process.env.NODE_ENV == 'production';
+var prod = process.env.NODE_ENV === 'production';
 // console.log(prod);
 // console.log(process.env);
 module.exports = {

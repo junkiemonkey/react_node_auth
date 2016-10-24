@@ -2,10 +2,10 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var fs = require('fs');
-
+// process.env.NODE_ENV = 'production'
 
 var prod = process.env.NODE_ENV === 'production';
-console.log(prod);
+console.log(process.env);
 var config = {
   devtool: prod ? null : 'source-map',
   entry: {
