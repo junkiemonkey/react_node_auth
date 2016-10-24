@@ -5,6 +5,7 @@ var fs = require('fs');
 
 
 var prod = process.env.NODE_ENV === 'production';
+console.log(prod);
 var config = {
   devtool: prod ? null : 'source-map',
   entry: {

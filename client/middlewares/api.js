@@ -1,4 +1,4 @@
-import {SUCCESS, FAIL, CHECK_AUTH, LOGOUT, LOGIN, LOAD_ONE_NEWS, LOAD_ALL_NEWS, SAVE_NEWS, DELETE_NEWS, UPDATE_NEWS} from '../constants';
+import {SUCCESS, FAIL, CHECK_AUTH, LOGOUT, LOGIN, LOAD_ONE_NEWS, LOAD_ALL_NEWS, SAVE_NEWS, DELETE_NEWS, UPDATE_NEWS, REG} from '../constants';
 import $ from 'jquery';
 
 export default store => next => action => {
@@ -8,6 +8,22 @@ export default store => next => action => {
   if(rest.hasOwnProperty('isNew')) return next(action);
 
   switch (type) {
+    case REG:
+      $.post({
+        url: callAPI,
+        type: 'POST',
+        data: payload,
+        xhrFields: {
+          withCredentials: true
+        },
+        success(res){
+          next({type: type + SUCCESS, res, ...rest});
+        },
+        error(res){
+          next({type: type + FAIL, res, ...rest});
+        }
+      });
+      break;
     case CHECK_AUTH:
       $.get(callAPI)
         .done(res => next({type: type + SUCCESS, res, ...rest}))

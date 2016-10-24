@@ -1,6 +1,6 @@
 const path = require('path');
 process.env.NODE_CONFIG_DIR = path.join(process.cwd(), 'server/config');
-process.env.NODE_ENV = 'production';
+// process.env.NODE_ENV = 'production';
 
 const koa = require('koa');
 const app = koa();
@@ -28,7 +28,7 @@ router.get('*', function*(next){
 
 app.use(router.routes());
 
-console.log('served on: ' + config.server.port + ' ' + config.server.url);
+// console.log('served on: ' + config.server.port + ' ' + config.server.url);
 
 app.listen(config.server.port, config.server.url);
 

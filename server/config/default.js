@@ -1,6 +1,6 @@
 var prod = process.env.NODE_ENV == 'production';
-console.log(prod);
-console.log(process.env);
+// console.log(prod);
+// console.log(process.env);
 module.exports = {
   secret:   'secret',
   mongoose: {
