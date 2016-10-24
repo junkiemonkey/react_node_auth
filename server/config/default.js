@@ -1,3 +1,4 @@
+var prod = process.env.NODE_ENV == 'production';
 module.exports = {
   secret:   'secret',
   mongoose: {
@@ -10,6 +11,10 @@ module.exports = {
         poolSize: 5
       }
     }
+  },
+  server: {
+    url: prod ? '10.129.1.206' : 'localhost',
+    port: prod ? 80 : 3000
   },
   crypto: {
     hash: {

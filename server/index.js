@@ -1,5 +1,6 @@
 const path = require('path');
-process.env.NODE_CONFIG_DIR = path.join(process.cwd(), 'config');
+process.env.NODE_CONFIG_DIR = path.join(process.cwd(), 'server/config');
+
 const koa = require('koa');
 const app = koa();
 const config = require('config');
@@ -26,7 +27,7 @@ router.get('*', function*(next){
 
 app.use(router.routes());
 
-app.listen(80, '10.129.1.206');
+app.listen(config.server.port, config.server.url);
 
 module.exports = app;
 

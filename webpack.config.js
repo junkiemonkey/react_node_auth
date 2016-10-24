@@ -46,5 +46,26 @@ var config = {
   ]
 };
 
-
+if(prod) {
+  config.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress:{
+        warnings: false,
+        screw_ie8: true
+      }
+    })
+  );
+}else {
+  config.devtool = "source-map";
+  config.devServer = {
+    historyApiFallback: true,
+    // contentBase: __dirname + '/static',
+    proxy: {
+      '/api/*':  'http://localhost:3000'
+    }
+  };
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin()
+  );
+};
 module.exports = config;
