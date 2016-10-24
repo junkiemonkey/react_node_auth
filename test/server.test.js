@@ -21,7 +21,7 @@ describe('REST API SERVER', function(){
 
 
   describe('News REST API', function(){
-    let img = '/images/img.jpg';
+    let img = '/static/images/img.jpg';
     let text = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequatur distinctio dolores doloribus eius expedita explicabo iste neque nostrum omnis perferendis repellat sunt, tenetur? Eum excepturi facilis fugiat minima possimus quos? Deleniti dolores error laborum modi numquam. Aliquid amet atque, beatae blanditiis corporis debitis deserunt distinctio doloribus ea error est eveniet impedit incidunt molestiae molestias necessitatibus nesciunt nobis numquam officiis optio perspiciatis porro quaerat quasi quibusdam quisquam rem sapiente suscipit, ut voluptatibus voluptatum. Autem eveniet excepturi, inventore quae quam quasi quo sed voluptatum? Aliquid, beatae commodi doloribus facilis labore magni molestiae nostrum quidem reprehenderit ullam velit voluptatibus. Accusantium aspernatur assumenda cum et ex explicabo, incidunt ipsum maxime molestiae molestias natus nihil nisi obcaecati perferendis quam recusandae sed sint sit? Aspernatur, at commodi consequatur consequuntur delectus deserunt incidunt nam quae quam recusandae rem repellendus soluta, tenetur ut veritatis! At beatae blanditiis consequuntur culpa cum dicta dolores eaque error esse ex fugit incidunt, ipsum iste itaque laboriosam magni nemo officiis placeat porro quasi quia quibusdam quos ratione sed sit tempore tenetur totam vel veritatis voluptatibus. Expedita fuga omnis porro repellat veritatis voluptas, voluptatem voluptates voluptatibus. Blanditiis cumque delectus deleniti, eos impedit iure magni molestiae natus nisi numquam officia, quam quas ut vero!'
     let existNewsData = {
       title: 'News title',

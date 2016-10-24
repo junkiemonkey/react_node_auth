@@ -1,9 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var fs = require('fs');
 
-module.exports = {
-  devtool: 'source-map',
+var prod = process.env.NODE_ENV === 'production';
+
+const config = {
   entry: {
     bundle: './client/app.js',
     style: './client/app.scss'
@@ -14,13 +16,7 @@ module.exports = {
     publicPath: '/static/',
     library: '[name]'
   },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: __dirname + '/static',
-    proxy: {
-      '/api/*':  'http://localhost:3000'
-    }
-  },
+  // watch: true,
   module: {
     loaders: [
       {
@@ -40,6 +36,36 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('style.css', {allChunks: true})
+    new ExtractTextPlugin('style.css', {allChunks: true}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
+    })
   ]
 };
+
+if(prod) {
+  config.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress:{
+        warnings: false,
+        screw_ie8: true
+      }
+    })
+  );
+}else {
+  config.devtool = "source-map";
+  config.devServer = {
+    historyApiFallback: true,
+      // contentBase: __dirname + '/static',
+      proxy: {
+      '/api/*':  'http://localhost:3000'
+    }
+  };
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin()
+  );
+};
+
+module.exports = config;

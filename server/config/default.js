@@ -15,7 +15,7 @@ module.exports = {
     hash: {
       length:     128,
       // may be slow(!): iterations = 12000 take ~60ms to generate strong password
-      iterations: 1
+      iterations: 10
     }
   },
 };

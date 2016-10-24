@@ -19,6 +19,6 @@ module.exports = function*(next){
   for (let i = 0; i<len; i++) {
     this.request.body[parts.fields[i][0]] = parts.fields[i][1];
   }
-  this.request.body.image = '/images/' + random + '.' + filename;
+  this.request.body.image = '/static/images/' + random + '.' + filename;
   yield* next;
 };

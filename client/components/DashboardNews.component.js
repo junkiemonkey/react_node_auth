@@ -21,7 +21,7 @@ class DashboardComponent extends Component {
     const {newslist, editNews} = this.props;
     if(newslist){
       var newsItems = newslist.map(news => {
-        return <div key={news._id} className="news-item"><ListItem onClick={this._editNews} primaryText={news.title} containerElement={<Link to={`/dashboard/edit/${news.slug}`}/>} style={{border: '1px solid #ccc'}}  rightIcon={<div onClick={this._deleteNews} id={news._id}><DeleteIcon /></div>} /></div>
+        return <div key={news._id} className="news-item"><ListItem secondaryText={new Date(news.created).toDateString()} onClick={this._editNews} primaryText={news.title} containerElement={<Link to={`/dashboard/edit/${news.slug}`}/>} style={{border: '1px solid #ccc'}}  rightIcon={<div onClick={this._deleteNews} id={news._id}><DeleteIcon /></div>} /></div>
       });
     }
 

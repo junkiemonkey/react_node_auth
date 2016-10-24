@@ -4,23 +4,23 @@ const User = require('mongoose').model('User');
 
 exports.login = function*(next) {
   var that = this;
-  yield passport.authenticate('local', function*(err, info, mess){
+  yield passport.authenticate('local', function*(err, user, mess){
     if(err) {
       that.throw(err);
     }
-    if(!info){
-      that.throw(401, mess.message);
+    if(!user){
+      that.throw(403, mess.message);
     }
-    that.req.login(info, function(err){
+    that.req.login(user, function(err){
       console.log(err);
     });
 
     var data = {
       message: 'Your in!',
       data: {
-        name: info.username,
-        email: info.email,
-        created: info.created
+        name: user.username,
+        email: user.email,
+        created: user.created
       }
     };
 
@@ -54,7 +54,7 @@ exports.registration = function*(next) {
     that.type = 'json';
     that.body = data;
   });
-}
+};
 
 exports.check = function*(next){
 
@@ -66,8 +66,8 @@ exports.check = function*(next){
     this.statusCode = 200;
     this.body = user;
   }else {
-    this.throw(401, 'Access denied!');
+    this.throw(403, 'Access denied!');
   }
 
   // yield* next;
-}
+};
