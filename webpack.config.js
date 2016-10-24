@@ -3,9 +3,10 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var fs = require('fs');
 
-var prod = process.env.NODE_ENV === 'production';
 
-const config = {
+var prod = process.env.NODE_ENV == 'production';
+var config = {
+  devtool: prod ? null : 'source-map',
   entry: {
     bundle: './client/app.js',
     style: './client/app.scss'
@@ -45,27 +46,5 @@ const config = {
   ]
 };
 
-if(prod) {
-  config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress:{
-        warnings: false,
-        screw_ie8: true
-      }
-    })
-  );
-}else {
-  config.devtool = "source-map";
-  config.devServer = {
-    historyApiFallback: true,
-      // contentBase: __dirname + '/static',
-      proxy: {
-      '/api/*':  'http://localhost:3000'
-    }
-  };
-  config.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
-  );
-};
 
 module.exports = config;

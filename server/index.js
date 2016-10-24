@@ -1,5 +1,5 @@
 const path = require('path');
-process.env.NODE_CONFIG_DIR = path.join(process.cwd(), 'server/config');
+process.env.NODE_CONFIG_DIR = path.join(process.cwd(), 'config');
 const koa = require('koa');
 const app = koa();
 const config = require('config');
@@ -21,12 +21,12 @@ require('./api/auth')(app);
 require('./api/news')(app);
 
 router.get('*', function*(next){
-  this.body = 'ok';
+  this.body = './index.html';
 });
 
 app.use(router.routes());
 
-app.listen(3000);
+app.listen(80, '10.129.1.206');
 
 module.exports = app;
 
