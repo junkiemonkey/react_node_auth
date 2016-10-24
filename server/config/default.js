@@ -4,7 +4,7 @@ console.log(process.env);
 module.exports = {
   secret:   'secret',
   mongoose: {
-    uri: 'mongodb://localhost/app',
+    uri: 'mongodb://127.0.0.1:27017/app',
     options: {
       server: {
         socketOptions: {
