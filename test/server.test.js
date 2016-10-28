@@ -9,7 +9,7 @@ var User = require('../server/models/user');
 var News = require('../server/models/news');
 
 function getURL(path){
-  return 'http://localhost:3000/api' + path;
+  return 'http://127.0.0.1:8080/api' + path;
 }
 
 describe('REST API SERVER', function(){
