@@ -6,15 +6,12 @@
     "exec_mode" : "cluster_mode",
     "max_memory_restart": "2G",
     "env":                {
-      "HOST":                        "10.129.1.206",
+      "HOST":                        "127.0.0.1",
       "PORT":                        "8080",
       "PM2_GRACEFUL_LISTEN_TIMEOUT": 1000,
       "PM2_GRACEFUL_TIMEOUT":        5000,
       "ASSET_VERSIONING":            "file",
       "NODE_ENV":                    "production"
-    },
-    "env_production": {
-      "NODE_ENV": "production"
     }
   }]
 }

@@ -6,11 +6,11 @@
   "scripts": {
     "test": "mocha",
     "start": "concurrently \"npm run dev\" \"npm run api\"",
-    "dev": "webpack-dev-server --hot --inline",
+    "dev": "webpack-dev-server --hot --inline --port 3000",
     "api": "nodemon server/index.js",
     "db": "mongod --dbpath=c:/mongodb/data",
-    "build:prod": "set NODE_ENV=production&&webpack -p",
-    "build:server": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors"
+    "build:prod": "set NODE_ENV=production&&webpack -p --progress --colors",
+    "build:server": "NODE_ENV=production webpack -p --progress --colors"
   },
   "keywords": [],
   "author": "Playloud",

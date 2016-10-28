@@ -28,13 +28,7 @@ router.get('*', function*(next){
 
 app.use(router.routes());
 
-// console.log('served on: ' + config.server.port + ' ' + config.server.url);
-
 app.listen(config.server.port, config.server.url);
 
 module.exports = app;
 
-// module.exports = {
-//   server : server,
-//   app : app
-// };

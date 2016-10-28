@@ -5,9 +5,8 @@ var fs = require('fs');
 // process.env.NODE_ENV = 'production'
 
 var prod = process.env.NODE_ENV === 'production';
-console.log(process.env);
+console.log(prod);
 var config = {
-  devtool: prod ? null : 'source-map',
   entry: {
     bundle: './client/app.js',
     style: './client/app.scss'
@@ -41,7 +40,7 @@ var config = {
     new ExtractTextPlugin('style.css', {allChunks: true}),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        'NODE_ENV': JSON.stringify('production')
       }
     })
   ]
@@ -60,9 +59,8 @@ if(prod) {
   config.devtool = "source-map";
   config.devServer = {
     historyApiFallback: true,
-    // contentBase: __dirname + '/static',
     proxy: {
-      '/api/*':  'http://localhost:3000'
+      '/api/*':  'http://localhost:8080'
     }
   };
   config.plugins.push(

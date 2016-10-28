@@ -1,6 +1,3 @@
-var prod = process.env.NODE_ENV === 'production';
-// console.log(prod);
-// console.log(process.env);
 module.exports = {
   secret:   'secret',
   mongoose: {
@@ -15,14 +12,14 @@ module.exports = {
     }
   },
   server: {
-    url: prod ? '10.129.1.206' : 'localhost',
-    port: prod ? 8080 : 3000
+    url: '127.0.0.1',
+    port: 8080
   },
   crypto: {
     hash: {
       length:     128,
       // may be slow(!): iterations = 12000 take ~60ms to generate strong password
-      iterations: 10
+      iterations: 100
     }
   },
 };
