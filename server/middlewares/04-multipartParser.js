@@ -13,9 +13,7 @@ module.exports = function*(next){
   let filename;
   while (part = yield parts){
     filename = part.filename;
-    part.pipe(fs.createWriteStream('./static/images/' + random + '.' + filename, err => {
-      if(err) this.throw(500);
-    }));
+    part.pipe(fs.createWriteStream('./static/images/' + random + '.' + filename));
   }
   // console.log(parts.fields);
   for (let i = 0; i<len; i++) {
