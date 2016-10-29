@@ -23,7 +23,7 @@ require('./api/auth')(app);
 require('./api/news')(app);
 
 router.get('*', function*(next){
-  this.body = 'OK';
+  this.body = this.render('index');
 });
 
 app.use(router.routes());
