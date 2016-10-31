@@ -45,7 +45,7 @@ userSchema.virtual('password')
 
     if (password) {
       this.salt = crypto.randomBytes(config.crypto.hash.length).toString('base64');
-      this.passwordHash = crypto.pbkdf2Sync(password, this.salt, config.crypto.hash.iterations, config.crypto.hash.length);
+      this.passwordHash = crypto.pbkdf2Sync(password, this.salt, config.crypto.hash.iterations, config.crypto.hash.length, 'SHA1');
     } else {
       // remove password (unable to login w/ password any more, but can use providers)
       this.salt = undefined;
@@ -60,7 +60,7 @@ userSchema.methods.checkPassword = function(password) {
   if (!password) return false; // empty password means no login by password
   if (!this.passwordHash) return false; // this user does not have password (the line below would hang!)
 
-  return crypto.pbkdf2Sync(password, this.salt, config.crypto.hash.iterations, config.crypto.hash.length) == this.passwordHash;
+  return crypto.pbkdf2Sync(password, this.salt, config.crypto.hash.iterations, config.crypto.hash.length, 'SHA1') == this.passwordHash;
 };
 
 module.exports = mongoose.model('User', userSchema);

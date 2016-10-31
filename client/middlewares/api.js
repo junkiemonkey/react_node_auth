@@ -100,10 +100,20 @@ export default store => next => action => {
       });
       break;
     case UPDATE_NEWS:
+      let data;
+      if(payload.file) {
+        data = new FormData();
+        for(let key in payload){
+          data.append(key, payload[key])
+        }
+      }else data = JSON.stringify(payload);
       $.ajax({
         url: callAPI,
         type: 'PATCH',
-        data: payload,
+        data: data,
+        cache: false,
+        contentType: payload.file === null ? 'application/json' : false,
+        processData: payload.file === null,
         success(res){
           next({type: type + SUCCESS, res, ...rest});
         },

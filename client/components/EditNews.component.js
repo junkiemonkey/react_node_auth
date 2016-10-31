@@ -71,7 +71,6 @@ class EditNewsComponent extends Component {
   }
 
   fileHandler = e => {
-    console.log(e.target.files[0]);
     this.setState({
       file: e.target.files[0],
       fileField:false
