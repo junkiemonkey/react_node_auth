@@ -12,3 +12,5 @@ export const EDIT_NEWS = 'EDIT_NEWS';
 export const SAVE_NEWS = 'SAVE_NEWS';
 export const ADD_NEWS = 'ADD_NEWS';
 export const UPDATE_NEWS = 'UPDATE_NEWS';
+export const CHANGE_PASS = 'CHANGE_PASS';
+export const CHANGE_NAME = 'CHANGE_NAME';

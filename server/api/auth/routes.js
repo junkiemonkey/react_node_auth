@@ -8,6 +8,8 @@ const router = new Router({
 router.post('/auth/', controller.login);
 router.post('/logout/', controller.logout);
 router.post('/registration/', controller.registration);
+router.post('/user/name/', controller.changeName);
+router.post('/user/pass/', controller.changePass);
 router.get('/check/', controller.check);
 
 module.exports = router;

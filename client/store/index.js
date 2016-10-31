@@ -1,10 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducer from '../reducer';
-import api from '../middlewares/api';
+import apiAuth from '../middlewares/api.auth';
+import apiNews from '../middlewares/api.news';
+import apiSettings from '../middlewares/api.settings';
 
 const enhancer = compose(
 
-  applyMiddleware(api),
+  applyMiddleware(apiAuth, apiNews, apiSettings),
 
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )

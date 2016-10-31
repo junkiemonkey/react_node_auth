@@ -30,6 +30,28 @@ passport.use(new LocalStrategy({
   }
 ));
 
+passport.use('local-changepass', new LocalStrategy({
+    usernameField : 'email',
+    passwordField : 'password',
+    passReqToCallback : true
+  }, function(req, email, password, done){
+  console.log(req);
+    User.findOne({ email: email }, function (err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user || !user.checkPassword(req.body.old)) {
+
+        return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
+      }
+      User.update({email: email}, {$set: {password: password}}, function(err, user){
+        if(err) done(err);
+        done(null, user);
+      });
+    });
+  }
+));
+
 passport.use('local-signup', new LocalStrategy({
     usernameField : 'email',
     passwordField : 'password',
