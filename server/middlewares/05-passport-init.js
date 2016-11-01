@@ -23,7 +23,7 @@ passport.use(new LocalStrategy({
       }
       if (!user || !user.checkPassword(password)) {
 
-        return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
+        return done(null, false, { message: 'There is no username or password is incorrect.' });
       }
       return done(null, user);
     });
@@ -35,18 +35,19 @@ passport.use('local-changepass', new LocalStrategy({
     passwordField : 'password',
     passReqToCallback : true
   }, function(req, email, password, done){
-  console.log(req);
     User.findOne({ email: email }, function (err, user) {
       if (err) {
         return done(err);
       }
       if (!user || !user.checkPassword(req.body.old)) {
-
-        return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
+        return done(null, false, { message: 'There is no username or password is incorrect.' });
       }
-      User.update({email: email}, {$set: {password: password}}, function(err, user){
-        if(err) done(err);
-        done(null, user);
+
+      user.password = password;
+
+      user.save(function(e, user){
+        if(e) return done(e);
+        return done(null, user);
       });
     });
   }

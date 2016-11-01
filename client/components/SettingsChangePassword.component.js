@@ -23,6 +23,23 @@ class ChangePassword extends Component {
 
   }
 
+  componentWillReceiveProps({ errorChangePass }){
+    if(errorChangePass){
+      this.setState({
+        error: errorChangePass,
+        oldField: true
+      });
+    }else {
+      this.setState({
+        error: '',
+        oldField: false,
+        oldPass: '',
+        newPass: '',
+        confirmPass: ''
+      });
+    }
+  }
+
   render(){
     return(
       <div className="block">
@@ -31,6 +48,7 @@ class ChangePassword extends Component {
           <TextField
             onChange={this.oldPassHandler}
             floatingLabelText = "Old Password"
+            value={this.state.oldPass}
             errorText = {this.state.oldField ? this.state.error : ''}
             type="password" />
         </div>

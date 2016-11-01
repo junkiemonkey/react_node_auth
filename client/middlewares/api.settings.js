@@ -17,8 +17,6 @@ export default store => next => action => {
     }
   }
 
-  console.log(options.data);
-
   switch (type) {
     case CHANGE_NAME:
       $.ajax(options);

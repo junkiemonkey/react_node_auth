@@ -12,7 +12,7 @@ exports.login = function*(next) {
       that.throw(403, mess.message);
     }
     that.req.login(user, function(err){
-      console.log(err);
+      console.log('err ' + err);
     });
 
     var data = {
@@ -76,13 +76,14 @@ exports.changeName = function*(next){
   const data = this.request.body;
   const newUser = yield User.findOneAndUpdate({email: data.email}, {$set:{username: data.name}}, {new: true});
   if(!newUser) this.throw(404);
-  this.body = newUser;
+  this.body = newUser.username;
 }
 
 exports.changePass = function*(next){
   var _this = this;
-  yield passport.authenticate('local-changepass', function*(err, user){
-    if(err) _this.throw(err);
+  yield passport.authenticate('local-changepass', function*(err, user, mess){
+    if(err) _this.throw(500, err);
+    if(!user) _this.throw(403, mess);
     _this.statusCode = 200;
     _this.body = 'OK!';
   })

@@ -32,6 +32,10 @@ class Header extends Component {
     )
   }
 
+  componentWillReceiveProps(props){
+    // console.log(props);
+  }
+
   siteMenu = (props) => {
     return (
       <IconMenu {...props} iconButtonElement={<IconButton><MenuIcon color="#fff" /></IconButton>}>

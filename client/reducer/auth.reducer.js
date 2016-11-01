@@ -1,4 +1,4 @@
-import { LOGIN, REG, SUCCESS, FAIL, CHECK_AUTH, LOGOUT } from '../constants';
+import { LOGIN, REG, SUCCESS, FAIL, CHECK_AUTH, LOGOUT, CHANGE_NAME, CHANGE_PASS } from '../constants';
 
 const defaultState = {
 
@@ -63,6 +63,23 @@ export default (state = defaultState, action) => {
           isAuthenticated: false
         }
       });
+    case CHANGE_NAME + SUCCESS:
+      return Object.assign({}, state, {
+        errorChangePass: null,
+        user: {
+          isAuthenticated: true,
+          data: {
+            email: state.user.data.email,
+            name: res
+          }
+        }
+      })
+    case CHANGE_NAME + FAIL:
+      return state;
+    case CHANGE_PASS + FAIL:
+      return Object.assign({}, state, {
+        errorChangePass: res.responseText
+      })
     default: return state;
   }
   return state;
