@@ -64,6 +64,9 @@ passport.use('local-signup', new LocalStrategy({
       password: password.trim(),
       username: req.body.username.trim()
     };
+    User.count(function(err, count){
+      if(count>5) return done(null, false, {message: 'Database is full!'});
+    });
     var user = new User(userData);
     user.save(function(e, user){
       if(e) return done(e);
