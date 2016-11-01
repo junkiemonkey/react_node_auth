@@ -22,6 +22,9 @@ exports.saveNews = function*(next){
     if(err) ctx.throw(err);
   });
   if(check) this.throw(400, 'Title must be a uniq field!');
+  yield News.count(function(err, count){
+    if(count>=10) ctx.throw(500, 'Database is full');
+  });
   var new_news = yield News.create(data);
   this.body = new_news.toObject();
 };
