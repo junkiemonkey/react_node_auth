@@ -17,7 +17,6 @@ var config = {
     publicPath: '/static/',
     library: '[name]'
   },
-  // watch: true,
   module: {
     loaders: [
       {
@@ -58,7 +57,9 @@ if(prod) {
 }else {
   config.devtool = "source-map";
   config.devServer = {
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/static/index.html'
+    },
     proxy: {
       '/api/*':  'http://localhost:8080'
     }

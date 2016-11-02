@@ -63,6 +63,9 @@ exports.updateNews = function* (next) {
   if(data.text.length){
     newData.text = data.text;
   }
+  if(data.image) {
+    newData.image = data.image
+  }
 
   if(newData.slug){
     let check = yield News.count({slug: newData.slug}, function(err){
