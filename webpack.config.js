@@ -14,7 +14,7 @@ var config = {
   output: {
     path: path.join(__dirname, 'static'),
     filename: '[name].js',
-    publicPath: '/',
+    publicPath: '/static/',
     library: '[name]'
   },
   module: {
@@ -58,12 +58,9 @@ if(prod) {
   config.devtool = "source-map";
   config.devServer = {
     historyApiFallback: {
-      index: '/templates/index.html',
-      rewrites: [
-        {from: /^\/images/, to: '/static/images/'}
-      ]
+      index: '/templates/index.html'
     },
-    contentBase: './',
+    // contentBase: './',
     // publicPath
     proxy: {
       '/api/*':  'http://localhost:8080'
