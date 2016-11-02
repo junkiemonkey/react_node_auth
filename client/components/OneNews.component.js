@@ -11,7 +11,7 @@ const OneNewsComponent = props => {
   let date = one_news ? one_news.created : '';
   return (
     <Card>
-      <CardMedia overlay={<CardTitle title={title} subtitle={new Date(date).toDateString()} />}>
+      <CardMedia overlay={<CardTitle title={<h1 className="title">{title}</h1>} subtitle={new Date(date).toDateString()} />}>
         <img src={image} className="news-img" alt=""/>
       </CardMedia>
       <CardText>{text}</CardText>
