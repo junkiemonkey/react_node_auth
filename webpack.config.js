@@ -58,9 +58,13 @@ if(prod) {
   config.devtool = "source-map";
   config.devServer = {
     historyApiFallback: {
-      index: '/static/index.html'
+      index: '/templates/index.html',
+      rewrites: [
+        {from: /^\/images/, to: '/static/images/'}
+      ]
     },
-    // contentBase: '/static/',
+    contentBase: './',
+    // publicPath
     proxy: {
       '/api/*':  'http://localhost:8080'
     }
