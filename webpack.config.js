@@ -14,7 +14,7 @@ var config = {
   output: {
     path: path.join(__dirname, 'static'),
     filename: '[name].js',
-    publicPath: '/static/',
+    publicPath: '/',
     library: '[name]'
   },
   module: {
@@ -60,6 +60,7 @@ if(prod) {
     historyApiFallback: {
       index: '/static/index.html'
     },
+    // contentBase: '/static/',
     proxy: {
       '/api/*':  'http://localhost:8080'
     }
