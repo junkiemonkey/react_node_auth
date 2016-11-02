@@ -60,7 +60,7 @@ if(prod) {
   config.devServer = {
     historyApiFallback: true,
     proxy: {
-      '/':  'http://localhost:8080'
+      '/api/*':  'http://localhost:8080'
     }
   };
   config.plugins.push(
