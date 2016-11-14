@@ -2,66 +2,54 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var fs = require('fs');
-// process.env.NODE_ENV = 'production'
 
-var prod = process.env.NODE_ENV === 'production';
-console.log(prod);
+var NODE_ENV = process.env.NODE_ENV || 'development';
+console.log(NODE_ENV);
 var config = {
-  entry: {
-    bundle: './client/app.js',
-    style: './client/app.scss'
-  },
+  entry: './client/app.js',
   output: {
     path: path.join(__dirname, 'static'),
-    filename: '[name].js',
-    publicPath: '/static/',
-    library: '[name]'
+    filename: 'js/bundle.js',
+    publicPath: '/'
   },
   module: {
     loaders: [
       {
         test: /\.jsx?/,
-        loaders: ['babel'],
-        exclude: [/node_modules/],
+        loader: 'babel',
+        exclude: /\/node_modules\//,
         include: path.join(__dirname, 'client')
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!resolve-url!sass-loader?sourceMap')
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-      },
+        loader: ExtractTextPlugin.extract('css-loader!resolve-url!sass-loader?sourceMap')
+      }
     ]
   },
   plugins: [
-    new ExtractTextPlugin('style.css', {allChunks: true}),
+    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('css/style.css', {allChunks: true}),
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+      NODE_ENV: JSON.stringify(NODE_ENV)
     })
   ]
 };
 
-if(prod) {
+if(NODE_ENV == 'production') {
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress:{
         warnings: false,
-        screw_ie8: true
+        unsafe: true
       }
     })
   );
 }else {
-  config.devtool = "source-map";
+  config.devtool = "eval";
   config.devServer = {
     historyApiFallback: {
       index: '/templates/index.html'
     },
-    // contentBase: './',
-    // publicPath
     proxy: {
       '/api/*':  'http://localhost:8080'
     }

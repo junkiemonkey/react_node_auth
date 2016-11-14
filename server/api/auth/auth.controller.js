@@ -3,15 +3,15 @@ const User = require('mongoose').model('User');
 
 
 exports.login = function*(next) {
-  var that = this;
+  var ctx = this;
   yield passport.authenticate('local', function*(err, user, mess){
     if(err) {
-      that.throw(err);
+      ctx.throw(err);
     }
     if(!user){
-      that.throw(403, mess.message);
+      ctx.throw(403, mess.message);
     }
-    that.req.login(user, function(err){
+    ctx.req.login(user, function(err){
       console.log('err ' + err);
     });
 
@@ -25,8 +25,8 @@ exports.login = function*(next) {
     };
 
     // that.type = 'json';
-    that.set('Access-Control-Allow-Credentials', true);
-    that.body = data;
+    ctx.set('Access-Control-Allow-Credentials', true);
+    ctx.body = data;
 
   });
 }
@@ -39,10 +39,10 @@ exports.logout = function*(next){
 }
 
 exports.registration = function*(next) {
-  var that = this;
+  var ctx = this;
   yield passport.authenticate('local-signup', function*(err, info){
-    if(err) that.throw(err);
-    that.statusCode = 200;
+    if(err) ctx.throw(err);
+    ctx.statusCode = 200;
     var data = {
       message: 'User Saved!',
       data: {
@@ -51,8 +51,8 @@ exports.registration = function*(next) {
         created: info.created
       }
     };
-    that.type = 'json';
-    that.body = data;
+    ctx.type = 'json';
+    ctx.body = data;
   });
 };
 
@@ -80,11 +80,11 @@ exports.changeName = function*(next){
 }
 
 exports.changePass = function*(next){
-  var _this = this;
+  var ctx = this;
   yield passport.authenticate('local-changepass', function*(err, user, mess){
-    if(err) _this.throw(500, err);
-    if(!user) _this.throw(403, mess);
-    _this.statusCode = 200;
-    _this.body = 'OK!';
-  })
+    if(err) ctx.throw(500, err);
+    if(!user) ctx.throw(403, mess);
+    ctx.statusCode = 200;
+    ctx.body = 'OK!';
+  });
 }
