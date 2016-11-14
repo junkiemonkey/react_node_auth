@@ -28,10 +28,12 @@ var config = {
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
-    new ExtractTextPlugin('css/style.css', {allChunks: true}),
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(NODE_ENV)
-    })
+      "process.env": {
+        NODE_ENV: JSON.stringify("production")
+      }
+    }),
+    new ExtractTextPlugin('css/style.css', {allChunks: true}),
   ]
 };
 
