@@ -25,6 +25,7 @@ exports.saveNews = function*(next){
   yield News.count(function(err, count){
     if(count>=10) ctx.throw(500, 'Database is full');
   });
+  data.author = this.passport.user.username;
   var new_news = yield News.create(data);
   this.body = new_news.toObject();
 };

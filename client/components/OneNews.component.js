@@ -9,8 +9,11 @@ const OneNewsComponent = props => {
   let text = one_news ? one_news.text : '';
   let image = one_news ? one_news.image : '';
   let date = one_news ? one_news.created : '';
+  let author = one_news ? one_news.author : '';
+
   return (
     <Card>
+      <CardHeader title={`Author: ${author}`} />
       <CardMedia overlay={<CardTitle title={<h1 className="title">{title}</h1>} subtitle={new Date(date).toDateString()} />}>
         <img src={image} className="news-img" alt=""/>
       </CardMedia>

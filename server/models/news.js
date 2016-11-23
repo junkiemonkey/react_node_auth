@@ -22,6 +22,10 @@ var NewsSchema = new Shcema({
     type: String,
     required: true,
     unique: true
+  },
+  author: {
+    type: String,
+    required: 'Author is Required!'
   }
 });
 

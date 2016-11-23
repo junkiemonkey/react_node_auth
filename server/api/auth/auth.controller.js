@@ -57,7 +57,6 @@ exports.registration = function*(next) {
 };
 
 exports.check = function*(next){
-
   if(this.isAuthenticated()){
     const user = {
       email: this.passport.user.email,

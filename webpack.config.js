@@ -37,7 +37,7 @@ var config = {
   ]
 };
 
-if(NODE_ENV == 'production') {
+if(NODE_ENV === 'production') {
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress:{
@@ -49,6 +49,7 @@ if(NODE_ENV == 'production') {
 }else {
   config.devtool = "eval";
   config.devServer = {
+    port: 3000,
     historyApiFallback: {
       index: '/templates/index.html'
     },
@@ -59,5 +60,5 @@ if(NODE_ENV == 'production') {
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin()
   );
-};
+}
 module.exports = config;

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha",
     "start": "concurrently \"npm run dev\" \"npm run api\"",
-    "dev": "webpack-dev-server --inline --port 3000",
+    "dev": "webpack-dev-server --inline",
     "api": "nodemon server/index.js",
     "db": "mongod --dbpath=c:/mongodb/data",
     "build:prod": "set NODE_ENV=production&&webpack -p --progress --colors",
