@@ -39,6 +39,7 @@ export function editNews(){
 }
 
 export function saveNews(data){
+  // console.log(data);
   return {
     type: SAVE_NEWS,
     callAPI: url,

@@ -19,8 +19,8 @@ export default store => next => action => {
       break;
     case SAVE_NEWS:
       const fd = new FormData();
-      for(let key in payload){
-        fd.append(key, payload[key])
+      for (let key in payload){
+        fd.append(key, payload[key]);
       }
       $.ajax({
         url: callAPI,

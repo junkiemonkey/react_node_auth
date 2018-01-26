@@ -27,12 +27,14 @@ describe('REST API SERVER', function(){
       title: 'News title',
       text: text,
       image: img,
-      slug: 'News-title'
+      slug: 'News-title',
+      author: 'ilya'
     };
     var newNewsData = {
       title: 'New News Title',
       text: text,
-      image: img
+      image: img,
+      username: 'ilya'
     };
     var existingNews;
     beforeEach(function*(){
@@ -121,7 +123,7 @@ describe('REST API SERVER', function(){
 
 
 
-    it('DEvarE NEWS', function*(){
+    it('DELETE NEWS', function*(){
       var response = yield request.del(getURL(`/news/${existingNews._id}`));
       response.statusCode.should.be.equal(200);
       response.body.should.be.String();

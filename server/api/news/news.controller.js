@@ -16,6 +16,7 @@ exports.getOneNews = function*(next){
 
 exports.saveNews = function*(next){
   const data = this.request.body;
+  console.log(data);
   const ctx = this;
   data.slug = slug(data.title);
   let check = yield News.count({slug: data.slug}, function(err){

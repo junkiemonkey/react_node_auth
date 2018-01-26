@@ -25,7 +25,7 @@ class ChangeName extends Component {
         <div className="form-group">
           <TextField
             onChange={this.nameHandler}
-            defaultValue={user.data.name}
+            defaultValue={user && user.data.name}
             floatingLabelText = "Name" />
         </div>
         <div className="form-group">

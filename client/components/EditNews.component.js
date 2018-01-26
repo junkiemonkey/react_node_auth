@@ -29,7 +29,7 @@ class EditNewsComponent extends Component {
   static propTypes = {
 
   }
-  
+
   render(){
     const {newslist, slug} = this.props;
     const edited = slug ? newslist.news.filter(nw => nw.slug == slug) : [];
