@@ -1,9 +1,10 @@
-const mongoose = require('../db/mongoose');
-const Schema = mongoose.Schema;
-const crypto = require('crypto');
-const config = require('config');
+import crypto from 'crypto';
+import config from 'config';
+import mongoose from '../db/mongoose';
 
-var userSchema = new Schema({
+const { Schema } = mongoose;
+
+const userSchema = new Schema({
   username: {
     type: String,
     required: 'Username is required'
@@ -63,4 +64,4 @@ userSchema.methods.checkPassword = function(password) {
   return crypto.pbkdf2Sync(password, this.salt, config.crypto.hash.iterations, config.crypto.hash.length, 'SHA1') == this.passwordHash;
 };
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

@@ -1,7 +1,6 @@
-const mongoose = require('../db/mongoose');
-const Shcema = mongoose.Schema;
+import { Shcema, model } from '../db/mongoose';
 
-var NewsSchema = new Shcema({
+const NewsSchema = new Shcema({
   title: {
     type: String,
     required: 'Title is required'
@@ -29,4 +28,4 @@ var NewsSchema = new Shcema({
   }
 });
 
-module.exports = mongoose.model('News', NewsSchema);
+export default model('News', NewsSchema);

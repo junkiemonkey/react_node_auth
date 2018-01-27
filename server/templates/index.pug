@@ -5,7 +5,8 @@ html(lang='en')
     meta(name='google-site-verification' content="XBRZ5rOc8YWhtAFSS_ZT1RCcMrfT83tY9rviYLYkTqE")
     meta(name='description' content='This is a example site on React and Node JS with authorization, simple admin panel and material-ui as UI')
     title React-Auth
-    link(rel='stylesheet' href='/static/style.css')
+    link(rel='stylesheet' href='/css/style.css')
   body
-    div(id='app')
-    script(src='/static/bundle.js')
+    div#app !{template}
+    script(src='/js/vendors.js')
+    script(src='/js/app.js')

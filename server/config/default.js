@@ -3,12 +3,13 @@ module.exports = {
   mongoose: {
     uri: 'mongodb://127.0.0.1:27017/app',
     options: {
-      server: {
-        socketOptions: {
-          keepAlive: 1
-        },
-        poolSize: 5
-      }
+      // server: {
+      //   socketOptions: {
+      //     keepAlive: 1
+      //   }
+      // },
+      keepAlive: 1,
+      poolSize: 5
     }
   },
   server: {

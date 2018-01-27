@@ -1,64 +1,136 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var fs = require('fs');
-
-var NODE_ENV = process.env.NODE_ENV || 'development';
-console.log(NODE_ENV);
-var config = {
-  entry: './client/app.js',
-  output: {
-    path: path.join(__dirname, 'static'),
-    filename: 'js/bundle.js',
-    publicPath: '/'
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?/,
-        loader: 'babel',
-        exclude: /\/node_modules\//,
-        include: path.join(__dirname, 'client')
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css-loader!resolve-url!sass-loader?sourceMap')
-      }
-    ]
-  },
-  plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify("production")
-      }
-    }),
-    new ExtractTextPlugin('css/style.css', {allChunks: true}),
-  ]
-};
-
-if(NODE_ENV === 'production') {
-  config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress:{
-        warnings: false,
-        unsafe: true
-      }
-    })
-  );
-}else {
-  config.devtool = "eval";
-  config.devServer = {
-    port: 3000,
-    historyApiFallback: {
-      index: '/templates/index.html'
-    },
-    proxy: {
-      '/api/*':  'http://localhost:8080'
+const { resolve } = require('path'),
+  combineLoaders = require('webpack-combine-loaders'),
+  {
+    NoEmitOnErrorsPlugin,
+    DefinePlugin,
+    SourceMapDevToolPlugin,
+    HotModuleReplacementPlugin,
+    LoaderOptionsPlugin,
+    optimize: {
+      CommonsChunkPlugin,
+      OccurrenceOrderPlugin ,
+      UglifyJsPlugin
     }
+  } = require('webpack'),
+  ExtractTextPlugin = require('extract-text-webpack-plugin'),
+  { smart, smartStrategy } = require('webpack-merge'),
+  { stringify } = JSON,
+  { env: { NODE_ENV } } = process,
+  { dependencies } = require('./package.json'),
+  packages = createPackages(dependencies),
+
+  config = {
+    // context: path.resolve(__dirname, 'app'),
+    entry: {
+      packages,
+      app: resolve(__dirname, 'app/app.js')
+    },
+    output: {
+      path: resolve(__dirname, 'static'),
+      filename: 'js/[name].js',
+      sourceMapFilename: 'js/[name].js.map',
+      publicPath: '/'
+    },
+    module: {
+      rules: [
+        {
+          enforce: 'pre',
+          test: /\.js$/,
+          loader: 'eslint-loader',
+          exclude: /node_modules/
+        },
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          include: /app/,
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader?{browsers:["last 2 version", "iOS 6"]}!resolve-url-loader!sass-loader?sourceMap')
+        },
+      ]
+    },
+    plugins: [
+      new NoEmitOnErrorsPlugin(),
+      new DefinePlugin({
+        process: {
+          env: {
+            BROWSER: stringify(true),
+            NODE_ENV: stringify(NODE_ENV),
+          }
+        }
+      }),
+      new CommonsChunkPlugin({
+        name: 'packages',
+        filename: 'js/vendors.js',
+        // minChunks: Infinity
+      }),
+      new SourceMapDevToolPlugin({
+        include: 'app',
+        exclude: 'packages'
+      }),
+      new ExtractTextPlugin('css/style.css', { allChunks: true })
+    ]
   };
-  config.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
-  );
+
+if (NODE_ENV === 'development') {
+  module.exports = smartStrategy({
+    entry: {
+      packages: 'prepend'
+    }
+  })(config, {
+    entry: {
+      packages: [
+        'react-hot-loader/patch',
+        'react-hot-loader'
+      ]
+    },
+    plugins: [
+      new HotModuleReplacementPlugin(),
+      new LoaderOptionsPlugin({
+        debug: true,
+        options: {
+          eslint: {
+            quiet: true
+          }
+        }
+      })
+    ],
+    output: {
+      pathinfo: true,
+    },
+    devServer: {
+      port: 3000,
+      hot: true,
+      inline: true,
+      historyApiFallback: {
+        index: 'app.html'
+      },
+      contentBase: resolve(__dirname, 'static'),
+      proxy: {
+        '/api/*': 'http://localhost:8080'
+      }
+    }
+  });
 }
-module.exports = config;
+
+if (NODE_ENV === 'production') {
+  module.exports = smart(config, {
+    plugins: [
+      new OccurrenceOrderPlugin(),
+      new UglifyJsPlugin({
+        compress: { warnings: false },
+        comments: false,
+        sourceMap: true,
+        mangle: true,
+        minimize: true
+      })
+    ]
+  });
+}
+
+function createPackages(dependencies) {
+  const clientPacs =  Object.keys(dependencies).filter(el => el !== 'babel-polyfill' && el !== 'react' && el !== 'react-dom' && el !== 'config' && el !== 'mongoose' && el.indexOf('koa') === -1 && el.indexOf('passport') === -1 && el !== 'slugify' && el !== 'await-busboy' && el !== 'pug');
+  return ['babel-polyfill', 'react', 'react-dom', ...clientPacs];
+}

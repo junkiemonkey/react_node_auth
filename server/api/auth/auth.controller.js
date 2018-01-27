@@ -2,20 +2,19 @@ const passport = require('koa-passport');
 const User = require('mongoose').model('User');
 
 
-exports.login = function*(next) {
-  var ctx = this;
-  yield passport.authenticate('local', function*(err, user, mess){
-    if(err) {
+export const login = async (ctx, next) => {
+  await passport.authenticate('local', (err, user, mess) => {
+    if (err) {
       ctx.throw(err);
     }
-    if(!user){
+    if (!user){
       ctx.throw(403, mess.message);
     }
-    ctx.req.login(user, function(err){
+    ctx.login(user, err => {
       console.log('err ' + err);
     });
 
-    var data = {
+    const data = {
       message: 'Your in!',
       data: {
         name: user.username,
@@ -28,22 +27,21 @@ exports.login = function*(next) {
     ctx.set('Access-Control-Allow-Credentials', true);
     ctx.body = data;
 
-  });
+  })(ctx, next);
 }
 
-exports.logout = function*(next){
-  this.req.logout();
-  this.session = null;
-  this.statusCode = 200;
-  this.body = 'You logged out!';
+export const logout = async ctx => {
+  ctx.logout();
+  ctx.session = null;
+  ctx.statusCode = 200;
+  ctx.body = 'You logged out!';
 }
 
-exports.registration = function*(next) {
-  var ctx = this;
-  yield passport.authenticate('local-signup', function*(err, info){
-    if(err) ctx.throw(err);
+export const registration = async (ctx, next) =>  {
+  await passport.authenticate('local-signup', (err, info) => {
+    if (err) ctx.throw(err);
     ctx.statusCode = 200;
-    var data = {
+    const data = {
       message: 'User Saved!',
       data: {
         name: info.username,
@@ -53,37 +51,35 @@ exports.registration = function*(next) {
     };
     ctx.type = 'json';
     ctx.body = data;
-  });
+  })(ctx, next);
 };
 
-exports.check = function*(next){
-  if(this.isAuthenticated()){
+export const check = ctx => {
+  if (ctx.isAuthenticated()){
     const user = {
-      email: this.passport.user.email,
-      name: this.passport.user.username
+      email: ctx.state.user.email,
+      name: ctx.state.user.username
     };
-    this.statusCode = 200;
+    ctx.statusCode = 200;
     this.body = user;
-  }else {
-    this.throw(403, 'Access denied!');
+  } else {
+    ctx.throw(403, 'Access denied!');
   }
-
   // yield* next;
 };
 
-exports.changeName = function*(next){
-  const data = this.request.body;
-  const newUser = yield User.findOneAndUpdate({email: data.email}, {$set:{username: data.name}}, {new: true});
-  if(!newUser) this.throw(404);
+export const changeName = async ctx => {
+  const data = ctx.request.body;
+  const newUser = await User.findOneAndUpdate({email: data.email}, {$set:{username: data.name}}, {new: true});
+  if (!newUser) this.throw(404);
   this.body = newUser.username;
 }
 
-exports.changePass = function*(next){
-  var ctx = this;
-  yield passport.authenticate('local-changepass', function*(err, user, mess){
-    if(err) ctx.throw(500, err);
-    if(!user) ctx.throw(403, mess);
+export const changePass = async (ctx, next) => {
+  await passport.authenticate('local-changepass', (err, user, mess) => {
+    if (err) ctx.throw(500, err);
+    if (!user) ctx.throw(403, mess);
     ctx.statusCode = 200;
     ctx.body = 'OK!';
-  });
+  })(ctx, next);
 }

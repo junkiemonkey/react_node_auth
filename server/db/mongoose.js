@@ -1,8 +1,6 @@
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
 // mongoose.set('debug', true);
-var config = require('config');
-
-console.log(config.mongoose)
+import config from 'config';
 
 if (process.env.MONGOOSE_DEBUG) {
   mongoose.set('debug', true);
