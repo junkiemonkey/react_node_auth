@@ -6,12 +6,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store';
 import App from './pages';
+import './app.scss';
 
 const { env: { NODE_ENV } } = process;
 
 const RenderType = NODE_ENV === 'production' ? hydrate : render;
 
-// import './app.scss';
+
 
 RenderType(
   <Provider store={store}>

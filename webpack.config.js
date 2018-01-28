@@ -1,5 +1,4 @@
-const { resolve } = require('path'),
-  combineLoaders = require('webpack-combine-loaders'),
+const path = require('path'),
   {
     NoEmitOnErrorsPlugin,
     DefinePlugin,
@@ -23,10 +22,10 @@ const { resolve } = require('path'),
     // context: path.resolve(__dirname, 'app'),
     entry: {
       packages,
-      app: resolve(__dirname, 'app/app.js')
+      app: './app/app.js'
     },
     output: {
-      path: resolve(__dirname, 'static'),
+      path: path.resolve(__dirname, 'static'),
       filename: 'js/[name].js',
       sourceMapFilename: 'js/[name].js.map',
       publicPath: '/'
@@ -47,7 +46,7 @@ const { resolve } = require('path'),
         },
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader?{browsers:["last 2 version", "iOS 6"]}!resolve-url-loader!sass-loader?sourceMap')
+          loader: ExtractTextPlugin.extract('css-loader!resolve-url-loader!sass-loader?sourceMap')
         },
       ]
     },
@@ -91,9 +90,13 @@ if (NODE_ENV === 'development') {
       new LoaderOptionsPlugin({
         debug: true,
         options: {
+          sassLoader: {
+            includePaths: [path.resolve(__dirname, 'app')]
+          },
           eslint: {
             quiet: true
-          }
+          },
+          context: config.context
         }
       })
     ],
@@ -107,7 +110,7 @@ if (NODE_ENV === 'development') {
       historyApiFallback: {
         index: 'app.html'
       },
-      contentBase: resolve(__dirname, 'static'),
+      contentBase: './static',
       proxy: {
         '/api/*': 'http://localhost:8080'
       }

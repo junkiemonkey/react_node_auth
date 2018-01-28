@@ -2,3 +2,4 @@ node_modules
 .idea
 static/
 !static/app.html
+package-lock.json

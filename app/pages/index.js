@@ -42,7 +42,7 @@ export default class App extends Component {
               <Route path={Routes.login} component={Login} />
               {/*<Route path={Routes.registration} component={Reg} />*/}
               {/*<Route path={Routes.dashboard.main} exact component={Dashboard} />*/}
-              {/*<Route path={Routes.dashboard.new} />*/}
+              <Route path={Routes.dashboard.news} exact component={News} />
             </Switch>
           </Paper>
         </div>

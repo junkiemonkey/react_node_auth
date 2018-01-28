@@ -8,4 +8,4 @@ if (process.env.MONGOOSE_DEBUG) {
 
 mongoose.connect(config.mongoose.uri, config.mongoose.options);
 
-module.exports = mongoose;
+export default mongoose;

@@ -1,6 +1,6 @@
 import pug from 'pug';
 
-export default (ctx, next) => {
+export default async (ctx, next) => {
 
   ctx.locals = {
     /* at the time of this middleware, user is unknown, so we make it a getter */
@@ -15,5 +15,5 @@ export default (ctx, next) => {
     }, false);
   };
 
-  next();
+  await next();
 };

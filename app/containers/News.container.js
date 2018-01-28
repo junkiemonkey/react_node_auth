@@ -11,7 +11,6 @@ class News extends Component {
     loadAllNews();
   }
 
-
   static propTypes = {
 
   }

@@ -2,13 +2,11 @@ export default async (ctx, next) => {
   try {
     await next();
   } catch (e) {
-
     let preferredType = ctx.accepts('html', 'json');
 
     if (e.status) {
       ctx.status = e.status;
 
-      // could use template methods to render error page
       if (preferredType === 'json') {
         ctx.body = {
           error: e.message
@@ -18,6 +16,7 @@ export default async (ctx, next) => {
       }
 
     } else if (e.name === 'ValidationError' || e === 'ValidationError') {
+
 
       ctx.status = 400;
 
@@ -40,8 +39,8 @@ export default async (ctx, next) => {
         };
       }
     } else {
-      ctx.body = 'Error 500';
       ctx.status = 500;
+      ctx.body = e.message;
       console.error(e.message, e.stack);
     }
 

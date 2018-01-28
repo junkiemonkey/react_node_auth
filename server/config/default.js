@@ -23,4 +23,20 @@ module.exports = {
       iterations: 100
     }
   },
+  routes: {
+    all: '*',
+    news: {
+      all: '/api/news/',
+      byId: '/api/news/:newsById',
+      bySlug: '/api/news/:newsBySlug'
+    },
+    auth: {
+      login: '/api/login/',
+      logout: '/api/logout/',
+      reg: '/api/registration/',
+      username: '/api/user/name/',
+      userpass: '/api/user/pass/',
+      check: '/api/check/'
+    }
+  }
 };

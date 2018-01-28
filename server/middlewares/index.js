@@ -9,13 +9,13 @@ import passport from './passport-init';
 import passportSession from './passport-session';
 
 export default [
-  // staticMiddleware,
-  // logger,
+  staticMiddleware,
+  logger,
   templates,
-  // errors,
-  // mongooseSession,
-  // parser,
-  // multipart,
+  errors,
+  mongooseSession,
+  parser,
+  multipart,
   passport,
   passportSession
 ];
