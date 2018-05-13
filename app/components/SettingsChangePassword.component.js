@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {TextField, RaisedButton } from 'material-ui';
 import SaveIcon from 'material-ui/svg-icons/content/save';
-import {changePass}  from '../AC/settings.AC';
+import {changePass}  from '../actions/settings.actions';
 
 class ChangePassword extends Component {
   constructor(props){

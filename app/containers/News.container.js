@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import NewsList from '../components/News.component';
-import {loadAllNews} from '../AC/news.AC';
+import {loadAllNews} from '../actions/news.actions';
 
 
 class News extends Component {

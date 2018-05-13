@@ -3,7 +3,7 @@ import {TextField, RaisedButton, FlatButton } from 'material-ui';
 import SaveIcon from 'material-ui/svg-icons/content/save';
 import BackIcon from 'material-ui/svg-icons/hardware/keyboard-backspace';
 import { connect } from 'react-redux';
-import {saveNews, addNews, updateNews} from '../AC/news.AC';
+import {saveNews, addNews, updateNews} from '../actions/news.actions';
 
 class EditNewsComponent extends Component {
 

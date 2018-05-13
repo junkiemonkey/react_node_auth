@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { object, func } from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { TextField, Paper, RaisedButton } from 'material-ui';
-import { registrate } from '../../AC/auth.AC';
+import { registration } from '../../actions/auth.actions';
 
-@connect(state => state, { registrate })
+@connect(state => state, { registration })
 export default class Reg extends Component {
 
   static contextTypes = {
@@ -14,7 +15,7 @@ export default class Reg extends Component {
 
   static propTypes = {
     auth: object,
-    registrate: func
+    registration: func
   }
 
   constructor(props) {
@@ -44,12 +45,12 @@ export default class Reg extends Component {
 
   singUp = () => {
     const {
-      props: { registrate },
+      props: { registration },
       state: { name, email, pass },
       validator
     } = this;
     if (!validator()) return null;
-    registrate(name, email, pass);
+    registration({ username: name, email, password: pass });
   }
 
   validator = () => {
@@ -143,6 +144,7 @@ export default class Reg extends Component {
             className="login__field"
             errorText={this.state.nameField ? this.state.error : ''}
             floatingLabelText="Name"
+            value={this.state.name}
           />
           <TextField
             onChange={inputHandler}
@@ -151,14 +153,16 @@ export default class Reg extends Component {
             type="email"
             errorText={this.state.emailField ? this.state.error : ''}
             floatingLabelText="Email"
+            value={this.state.email}
           />
           <TextField
             onChange={inputHandler}
-            name="password"
+            name="pass"
             className="login__field"
+            type="password"
             errorText={this.state.passField ? this.state.error : ''}
             floatingLabelText="Password"
-            type="password"
+            value={this.state.pass}
           />
           <TextField
             onChange={inputHandler}
@@ -167,6 +171,7 @@ export default class Reg extends Component {
             errorText={this.state.confirmField ? this.state.error : ''}
             floatingLabelText="Confirm Password"
             type="password"
+            value={this.state.confirm}
           />
           <RaisedButton
             onClick={singUp}
@@ -174,6 +179,9 @@ export default class Reg extends Component {
             primary
             label="Sign Up"
           />
+          <div className="reg_link">
+            <Link to="/login">Sign In</Link>
+          </div>
         </Paper>
       </div>
     );

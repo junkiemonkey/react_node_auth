@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {TextField, RaisedButton } from 'material-ui';
 import SaveIcon from 'material-ui/svg-icons/content/save';
-import { changeName } from '../AC/settings.AC';
+import { changeName } from '../actions/settings.actions';
 
 class ChangeName extends Component {
   constructor(props){

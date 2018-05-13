@@ -8,9 +8,15 @@ import { routes } from 'config';
 import App from '../app/pages';
 import store from '../app/store';
 import * as newsController from './api/news/controller';
+import * as authController from './api/auth/controller';
 
 const router = new Router();
-const { all, prefix, news, auth } = routes;
+const {
+  all,
+  prefix,
+  news,
+  auth
+} = routes;
 // console.dir(newsController.all());
 
 router
@@ -18,6 +24,9 @@ router
   .param('newsById', newsController.getById)
   .get(news.all, newsController.all)
   .get(news.bySlug, newsController.oneNews)
+
+  .post(auth.login, authController.login)
+  .post(auth.reg, authController.registration)
   // .post(news.all, newsController.save)
   // .patch(news.bySlug, newsController.update)
   // .del(news.byId, newsController.del)

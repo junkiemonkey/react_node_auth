@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { object, func } from 'prop-types';
-import {TextField, Paper, RaisedButton, Dialog, FlatButton } from 'material-ui';
+import { TextField, Paper, RaisedButton, Dialog, FlatButton } from 'material-ui';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {login} from '../../AC/auth.AC';
+import { login } from '../../actions/auth.actions';
 
 @connect(({auth}) => ({auth}), { login })
 export default class Login extends Component {
@@ -29,8 +29,6 @@ export default class Login extends Component {
     };
   }
 
-
-
   componentWillReceiveProps(props) {
     const {auth: { user: { isAuthenticated } }} = props;
     const {router} = this.context;
@@ -49,8 +47,8 @@ export default class Login extends Component {
 
   Auth = () => {
     const {
-      props: {login},
-      state: {email, pass},
+      props: { login },
+      state: { email, pass },
       validator
     } = this;
     if (!validator()) return;
@@ -96,7 +94,7 @@ export default class Login extends Component {
         label="Ok"
         primary
         keyboardFocused
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
       />,
     ];
 

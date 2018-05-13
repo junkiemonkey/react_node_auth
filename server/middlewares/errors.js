@@ -2,7 +2,7 @@ export default async (ctx, next) => {
   try {
     await next();
   } catch (e) {
-    let preferredType = ctx.accepts('html', 'json');
+    const preferredType = ctx.accepts('html', 'json');
 
     if (e.status) {
       ctx.status = e.status;

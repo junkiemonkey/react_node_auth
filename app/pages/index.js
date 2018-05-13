@@ -10,6 +10,7 @@ import { Paper } from 'material-ui';
 import HomePage from './Home';
 import Dashboard from './Dashboard';
 import News from './News';
+import OneNews from './News/OneNews';
 import Login from './Auth/Login';
 import Reg from './Auth/Reg';
 import Header from '../components/Header';
@@ -40,9 +41,13 @@ export default class App extends Component {
             <Switch>
               <Route path={Routes.home} exact component={HomePage} />
               <Route path={Routes.login} component={Login} />
-              {/*<Route path={Routes.registration} component={Reg} />*/}
+              <Route path={Routes.registration} component={Reg} />
+              <Route path={Routes.news.list} component={News} />
+              <Route path={Routes.news.one} component={OneNews} />
+              {/**/}
               {/*<Route path={Routes.dashboard.main} exact component={Dashboard} />*/}
-              <Route path={Routes.dashboard.news} exact component={News} />
+              {/*<Route path={Routes.dashboard.news} exact component={News} />*/}
+
             </Switch>
           </Paper>
         </div>

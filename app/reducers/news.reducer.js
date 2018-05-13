@@ -1,4 +1,3 @@
-
 import { createAction, handleActions } from 'redux-actions';
 import omit from 'lodash.omit';
 import {LOAD_ALL_NEWS, LOAD_ONE_NEWS, SUCCESS, FAIL, EDIT_NEWS, SAVE_NEWS, ADD_NEWS, DELETE_NEWS, UPDATE_NEWS} from '../constants';
@@ -10,6 +9,7 @@ const defaultState = {};
  * Actions
  */
 export const loadAllNews = createAction(LOAD_ALL_NEWS, null, () => ({ callApi: url }));
+
 
 /**
  * Reducer

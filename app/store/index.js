@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import createMemoryHistory from 'history/createMemoryHistory';
@@ -13,16 +15,12 @@ export const history = BROWSER ? createBrowserHistory() : createMemoryHistory();
 
 function generateCompose(...middlewares) {
   if (NODE_ENV === 'development') {
-    return compose(
-      ...middlewares,
-      window.devToolsExtension ? window.devToolsExtension() : f => f
-    );
+    return composeWithDevTools(...middlewares);
   }
-
   return compose(...middlewares);
 }
 
-const enhancer = generateCompose(applyMiddleware(apiNews, routerMiddleware(history))),
+const enhancer = generateCompose(applyMiddleware(apiNews, routerMiddleware(history), thunk)),
   store = createStore(reducers, {}, enhancer);
 
 export default store;

@@ -4,7 +4,7 @@ import { Tabs, Tab, RaisedButton } from 'material-ui';
 import DashboardNews from '../components/DashboardNews.component';
 import ChangeName from '../components/SettingsChangeName.component';
 import ChangePassword from '../components/SettingsChangePassword.component';
-import {loadAllNews} from '../AC/news.AC';
+import {loadAllNews} from '../actions/news.actions';
 
 
 class Dashboard extends Component {

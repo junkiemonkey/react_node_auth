@@ -1,13 +1,13 @@
-const passport = require('koa-passport');
-const User = require('mongoose').model('User');
-
+import passport from 'koa-passport';
+import User from './schema';
+// const User = require('mongoose').model('User');
 
 export const login = async (ctx, next) => {
   await passport.authenticate('local', (err, user, mess) => {
     if (err) {
       ctx.throw(err);
     }
-    if (!user){
+    if (!user) {
       ctx.throw(403, mess.message);
     }
     ctx.login(user, err => {
@@ -28,17 +28,18 @@ export const login = async (ctx, next) => {
     ctx.body = data;
 
   })(ctx, next);
-}
+};
 
 export const logout = async ctx => {
   ctx.logout();
   ctx.session = null;
   ctx.statusCode = 200;
   ctx.body = 'You logged out!';
-}
+};
 
-export const registration = async (ctx, next) =>  {
-  await passport.authenticate('local-signup', (err, info) => {
+export const registration = async (ctx, next) => {
+  // console.log(ctx.request.body);
+  await passport.authenticate('local-registration', (err, info) => {
     if (err) ctx.throw(err);
     ctx.statusCode = 200;
     const data = {
@@ -55,7 +56,7 @@ export const registration = async (ctx, next) =>  {
 };
 
 export const check = ctx => {
-  if (ctx.isAuthenticated()){
+  if (ctx.isAuthenticated()) {
     const user = {
       email: ctx.state.user.email,
       name: ctx.state.user.username
@@ -70,10 +71,10 @@ export const check = ctx => {
 
 export const changeName = async ctx => {
   const data = ctx.request.body;
-  const newUser = await User.findOneAndUpdate({email: data.email}, {$set:{username: data.name}}, {new: true});
+  const newUser = await User.findOneAndUpdate({ email: data.email }, {$set: { username: data.name }}, { new: true });
   if (!newUser) this.throw(404);
   this.body = newUser.username;
-}
+};
 
 export const changePass = async (ctx, next) => {
   await passport.authenticate('local-changepass', (err, user, mess) => {
@@ -82,4 +83,4 @@ export const changePass = async (ctx, next) => {
     ctx.statusCode = 200;
     ctx.body = 'OK!';
   })(ctx, next);
-}
+};

@@ -1,7 +1,6 @@
-"use strict";
 import React, { Component, PropTypes } from 'react';
 import OneNewsComponent from '../components/OneNews.component';
-import { loadOneNews } from '../AC/news.AC';
+import { loadOneNews } from '../actions/news.actions';
 import { connect } from 'react-redux';
 
 class OneNews extends Component {

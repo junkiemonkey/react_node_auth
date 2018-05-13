@@ -1,18 +1,19 @@
 import * as News from './models';
+
 const slug = require('slugify');
 const mongoose = require('../../db/mongoose');
 
 export const getBySlug = async (slug, ctx, next) => {
   if (!slug) ctx.throw(400);
   ctx.slug = slug;
-  await News.findOne({slug}, (data) => {
+  await News.findOne({slug}, data => {
     ctx.state.news = data;
     return next();
   }, ctx);
 };
 
 export const all = async ctx => {
-  await News.all((docs) => {
+  await News.all(docs => {
     ctx.body = docs;
   }, ctx);
 };
@@ -22,7 +23,6 @@ export const oneNews = ctx => {
   if (!news) ctx.throw(404, 'News nor found');
   ctx.body = news;
 };
-
 
 // exports.getOneNews = function*(next){
 //   if(!this.newsBySlug) this.throw(404, 'News not found!');

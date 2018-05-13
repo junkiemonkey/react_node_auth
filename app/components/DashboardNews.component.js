@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { List, ListItem, RaisedButton, Divider } from 'material-ui';
 import DeleteIcon from 'material-ui/svg-icons/action/delete-forever';
-import {addNews, deleteNews, editNews} from '../AC/news.AC';
+import {addNews, deleteNews, editNews} from '../actions/news.actions';
 import { connect } from 'react-redux';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import {Link} from 'react-router';

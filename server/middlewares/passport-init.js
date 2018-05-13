@@ -1,15 +1,15 @@
 import passport from 'koa-passport';
 import Local from 'passport-local';
-import User from '../models/user';
+import User from '../api/auth/schema';
 
 const LocalStrategy = Local.Strategy;
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
     done(err, user);
   });
 });
@@ -47,11 +47,12 @@ passport.use('local-changepass', new LocalStrategy({
   }
 ));
 
-passport.use('local-signup', new LocalStrategy({
+passport.use('local-registration', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
   }, (req, email, password, done) => {
+    // console.log(req, email, password);
     const userData = {
       email: email.trim(),
       password: password.trim(),

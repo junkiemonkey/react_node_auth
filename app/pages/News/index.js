@@ -3,7 +3,7 @@ import { func, array } from 'prop-types';
 import { connect } from 'react-redux';
 import {List, ListItem} from 'material-ui';
 import { Link } from 'react-router-dom';
-import {loadAllNews} from '../../reducers/news.reducer';
+import { loadAllNews } from '../../reducers/news.reducer';
 
 @connect(({news}) => news, {loadAllNews})
 export default class News extends Component {

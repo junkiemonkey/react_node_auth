@@ -1,5 +1,5 @@
 "use strict";
-import { checkAuth } from '../AC/auth.AC';
+import { checkAuth } from '../actions/auth.actions';
 import {connect} from 'react-redux';
 import store from '../store';
 

@@ -6,7 +6,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import UserIcon from 'material-ui/svg-icons/social/person';
 import UserIconOut from 'material-ui/svg-icons/social/person-outline';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import {logout} from '../AC/auth.AC';
+import {logout} from '../actions/auth.actions';
 
 class Header extends Component {
   static propTypes = {
